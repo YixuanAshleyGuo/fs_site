@@ -63,18 +63,19 @@
                 popup += "</td></tr>";
 
                 if('{{event.feedback_type}}' == 'None'){
-                    //        feedback buttons
+
+                   //        feedback buttons
                     var url = "{% url 'feedback' 'confirm' event.event_id %}";
-                    popup += '<tr><td><a href="'+url+'">';
-                    popup += "<button onclick=\"feedback(this)\" class=\"btn btn-success btn-block\">Confirm</button></a></td><td></td></tr>";
+                    popup += '<tr><td>';
+                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-success btn-block">Confirm</button></td><td></td></tr>';
 
                     url = "{% url 'feedback' 'rej_false' event.event_id %}";
-                    popup += '<tr><td><a href="'+url+'">';
-                    popup += "<button onclick=\"feedback(this)\" class=\"btn btn-danger btn-block\">Reject - False Event</button></a></td>";
+                    popup += '<tr><td>';
+                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-danger btn-block">Reject - False Event</button></td>';
 
                     url = "{% url 'feedback' 'rej_exp' event.event_id %}";
-                    popup += '<tr><td><a href="'+url+'">';
-                    popup += "<button onclick=\"feedback(this)\" class=\"btn btn-warning btn-block\">Reject - Expired</button></a></td></tr>";
+                    popup += '<tr><td>';
+                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-warning btn-block">Reject - Expired</button></td></tr>';
                 }
                 else{
                     popup += "<tr><th><strong>Feedback</strong></th><td><strong>";
