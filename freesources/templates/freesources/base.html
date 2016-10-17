@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Freesources | Team Ace{% block head_title %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% endblock %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width">
+{% block head_meta %}
+{% endblock head_meta %}
+
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block base_head_css %}
+        {% bootstrap_css %}
+        <link rel="icon" href="{% static 'images/freesources_icon.png' %}">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <script src="{% static 'js/map.js' %}"></script>
+        <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+{% endblock base_head_css %}
+
+    {% block head_css %}
+    {% endblock head_css %}
+
+    {% block base_head_script %}
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <script src="{% bootstrap_jquery_url %}"></script>
+        {% bootstrap_javascript %}
+    {% endblock base_head_script %}
+
+    {% block head_script %}
+    {% endblock head_script %}
+    
+</head>
+<body> 
+{% block main_content %}
+    {% block head_content %}
+    {% endblock head_content %} 
+    
+    
+    {% block map_content %}
+    {% endblock map_content %}
+
+{% endblock main_content %}
+</body>
+    
+</html>

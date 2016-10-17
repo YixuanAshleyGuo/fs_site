@@ -1,0 +1,11 @@
+body{
+	font-family: Georgia, serif;
+    padding: 20px;
+    background-color: aliceblue;
+}
+a:hover{
+    text-decoration: none;
+}
+#map {
+  padding: 20px;
+}
