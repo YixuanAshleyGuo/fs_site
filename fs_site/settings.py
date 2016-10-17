@@ -47,9 +47,14 @@ PREREQ_APPS = [
     'django.contrib.staticfiles',
 ]
 
-INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
+THIRD_PARTY_APPS = [
+    'bootstrap3',
+    'folium',
+]
 
-MIDDLEWARE = [
+INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS + THIRD_PARTY_APPS
+
+MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -86,8 +91,12 @@ WSGI_APPLICATION = 'fs_site.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'FreeSource',
+        'USER': 'teamace',
+        'PASSWORD': 'freesource',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -116,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
@@ -127,5 +136,5 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
