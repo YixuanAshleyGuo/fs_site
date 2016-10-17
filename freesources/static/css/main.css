@@ -1,0 +1,10 @@
+body{
+    padding: 20px;
+    background-color: aliceblue;
+}
+a:hover{
+    text-decoration: none;
+}
+#map {
+  padding: 20px;
+}
