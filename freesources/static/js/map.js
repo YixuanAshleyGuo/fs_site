@@ -7,10 +7,13 @@ function onMapClick(e) {
 
 
 function feedback(event,url){    
-    var choice  = confirm("Are you sure about submitting feedback?");
-
-    if(choice){
+    // var choice  = confirm("Are you sure about submitting feedback?");
+    $('#submitFeedback').one('click','#confirmSubmitFeedback', function(e){
         window.location.href = url;
-    }
+    })
+
+    // if(choice){
+    //     window.location.href = url;
+    // }
     
 }

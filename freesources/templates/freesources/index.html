@@ -67,15 +67,15 @@
                    //        feedback buttons
                     var url = "{% url 'feedback' 'confirm' event.event_id %}";
                     popup += '<tr><td>';
-                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-success btn-block">Confirm</button></td><td></td></tr>';
+                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-success btn-block" data-toggle="modal" data-target="#submitFeedback">Confirm</button></td><td></td></tr>';
 
                     url = "{% url 'feedback' 'rej_false' event.event_id %}";
                     popup += '<tr><td>';
-                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-danger btn-block">Reject - False Event</button></td>';
+                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-danger btn-block" data-toggle="modal" data-target="#submitFeedback">Reject - False Event</button></td>';
 
                     url = "{% url 'feedback' 'rej_exp' event.event_id %}";
                     popup += '<tr><td>';
-                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-warning btn-block">Reject - Expired</button></td></tr>';
+                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-warning btn-block" data-toggle="modal" data-target="#submitFeedback">Reject - Expired</button></td></tr>';
                 }
                 else{
                     popup += "<tr><th><strong>Feedback</strong></th><td><strong>";
@@ -95,8 +95,26 @@
                 map.addLayer(marker);        
         </script>
         {% endfor %}
+        <!-- Modal -->
+        <div id="submitFeedback" class="modal fade" role="dialog">
+          <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirm Feedback Submission</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure to submit feedback?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirmSubmitFeedback">Confirm</button>
+              </div>
+            </div>
 
-
+          </div>
+        </div>
 
 {% endblock map_content %}
