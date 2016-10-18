@@ -14,32 +14,9 @@
         maxZoom: 18,
         attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
     }).addTo(map);
-    
 
-    
-    map.on('click', onMapClick);
-
-
-</script>
-
-    <h2 class="text-center">Events table information list (for debug use only)</h2>
-    <table class="table">
-        <tr>
-        <th>Tag</th>
-        <th>Start Time</th>
-        <th>Expiration</th>
-        <th>Location</th>
-        <th>Description</th>
-        </tr>
-        {% for event in events %}
-        <tr>
-            <td>{{ event.tag_name }}</td>
-            <td>{{ event.start_time}}</td>
-            <td>{{ event.expiration}}</td>
-            <td>{{ event.location}}</td>
-            <td>{{ event.description}}</td>
-        <script>
-        //    add marker to the map
+    //    add marker to the map
+    {% for event in events %}
                 var marker = new L.marker(['{{event.latitude}}','{{event.longitude}}']);
                 var popup = "<h4 id=\"'{{event.event_id}}'\">Event Details</h4>";
                 popup += "<table class=\"table\">";
@@ -63,18 +40,19 @@
                 popup += "</td></tr>";
 
                 if('{{event.feedback_type}}' == 'None'){
-                    //        feedback buttons
+
+                   //        feedback buttons
                     var url = "{% url 'feedback' 'confirm' event.event_id %}";
-                    popup += '<tr><td><a href="'+url+'">';
-                    popup += "<button onclick=\"feedback(this)\" class=\"btn btn-success btn-block\">Confirm</button></a></td><td></td></tr>";
+                    popup += '<tr><td>';
+                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-success btn-block" data-toggle="modal" data-target="#submitFeedback">Confirm</button></td><td></td></tr>';
 
                     url = "{% url 'feedback' 'rej_false' event.event_id %}";
-                    popup += '<tr><td><a href="'+url+'">';
-                    popup += "<button onclick=\"feedback(this)\" class=\"btn btn-danger btn-block\">Reject - False Event</button></a></td>";
+                    popup += '<tr><td>';
+                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-danger btn-block" data-toggle="modal" data-target="#submitFeedback">Reject - False Event</button></td>';
 
                     url = "{% url 'feedback' 'rej_exp' event.event_id %}";
-                    popup += '<tr><td><a href="'+url+'">';
-                    popup += "<button onclick=\"feedback(this)\" class=\"btn btn-warning btn-block\">Reject - Expired</button></a></td></tr>";
+                    popup += '<tr><td>';
+                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-warning btn-block" data-toggle="modal" data-target="#submitFeedback">Reject - Expired</button></td></tr>';
                 }
                 else{
                     popup += "<tr><th><strong>Feedback</strong></th><td><strong>";
@@ -91,11 +69,55 @@
                 }
                 popup += "</table>";
                 marker.bindPopup(popup);
-                map.addLayer(marker);        
-        </script>
+                map.addLayer(marker);    
+    {% endfor %}    
+
+    
+    map.on('click', onMapClick);
+
+
+</script>
+
+    <h2 class="text-center">Events table information list (for debug use only)</h2>
+    <table class="table">
+        <tr>
+        <th>Tag</th>
+        <th>Start Time</th>
+        <th>Expiration</th>
+        <th>Location</th>
+        <th>Description</th>
+        </tr>
+        {% for event in events %}
+        <tr>
+            <td>{{ event.tag_name }}</td>
+            <td>{{ event.start_time}}</td>
+            <td>{{ event.expiration}}</td>
+            <td>{{ event.location}}</td>
+            <td>{{ event.description}}</td>
+        </tr>
         {% endfor %}
+    </table>
 
+        <!-- Modal -->
+        <div id="submitFeedback" class="modal fade" role="dialog">
+          <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirm Feedback Submission</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure to submit feedback?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirmSubmitFeedback">Confirm</button>
+              </div>
+            </div>
 
+          </div>
+        </div>
 
 {% endblock map_content %}

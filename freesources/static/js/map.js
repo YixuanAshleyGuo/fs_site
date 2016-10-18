@@ -6,22 +6,14 @@ function onMapClick(e) {
     }
 
 
-function feedback(event){
-//    var targ;
-//    if(!e) var e = window.Event;
-//    if(e.target) targ = e.target;
-//    else if(e.srcElement) targ = e.srcElement;
-//    alert("Test message");
+function feedback(event,url){    
+    // var choice  = confirm("Are you sure about submitting feedback?");
+    $('#submitFeedback').one('click','#confirmSubmitFeedback', function(e){
+        window.location.href = url;
+    })
 
-    // not working right now, should be further checked out
-    event.preventDefault();
-    
-    var choice  = confirm("Are you sure about submitting feedback?");
-//    var choice = confirm(this.getAttribute('value'));
-    if(choice){
-        var msg = "Thanks for submitting feedback for this event!";
-        alert(msg);
-        window.location.href = this.getAttribute('href');
-    }
+    // if(choice){
+    //     window.location.href = url;
+    // }
     
 }

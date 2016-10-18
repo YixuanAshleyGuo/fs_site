@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import connection
 from django.contrib.auth.decorators import login_required
@@ -31,4 +32,4 @@ def feedback(request,fd_type,event_id):
         cursor.execute("INSERT INTO Feedback (event_id,feedback_type,user_id) VALUES (%s, %s, %s)",
                       [event_id,fd_type,request.user.id])
     
-    return index(request)
+    return HttpResponseRedirect('/freesources/')
