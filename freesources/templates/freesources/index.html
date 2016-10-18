@@ -14,9 +14,32 @@
         maxZoom: 18,
         attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
     }).addTo(map);
+    
 
-    //    add marker to the map
-    {% for event in events %}
+    
+    map.on('click', onMapClick);
+
+
+</script>
+
+    <h2 class="text-center">Events table information list (for debug use only)</h2>
+    <table class="table">
+        <tr>
+        <th>Tag</th>
+        <th>Start Time</th>
+        <th>Expiration</th>
+        <th>Location</th>
+        <th>Description</th>
+        </tr>
+        {% for event in events %}
+        <tr>
+            <td>{{ event.tag_name }}</td>
+            <td>{{ event.start_time}}</td>
+            <td>{{ event.expiration}}</td>
+            <td>{{ event.location}}</td>
+            <td>{{ event.description}}</td>
+        <script>
+        //    add marker to the map
                 var marker = new L.marker(['{{event.latitude}}','{{event.longitude}}']);
                 var popup = "<h4 id=\"'{{event.event_id}}'\">Event Details</h4>";
                 popup += "<table class=\"table\">";
@@ -69,35 +92,9 @@
                 }
                 popup += "</table>";
                 marker.bindPopup(popup);
-                map.addLayer(marker);    
-    {% endfor %}    
-
-    
-    map.on('click', onMapClick);
-
-
-</script>
-
-    <h2 class="text-center">Events table information list (for debug use only)</h2>
-    <table class="table">
-        <tr>
-        <th>Tag</th>
-        <th>Start Time</th>
-        <th>Expiration</th>
-        <th>Location</th>
-        <th>Description</th>
-        </tr>
-        {% for event in events %}
-        <tr>
-            <td>{{ event.tag_name }}</td>
-            <td>{{ event.start_time}}</td>
-            <td>{{ event.expiration}}</td>
-            <td>{{ event.location}}</td>
-            <td>{{ event.description}}</td>
-        </tr>
+                map.addLayer(marker);        
+        </script>
         {% endfor %}
-    </table>
-
         <!-- Modal -->
         <div id="submitFeedback" class="modal fade" role="dialog">
           <div class="modal-dialog">
