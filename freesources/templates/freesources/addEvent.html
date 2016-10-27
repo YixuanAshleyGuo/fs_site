@@ -1,0 +1,46 @@
+{% extends 'freesources/base.html' %}
+{% block head_content %}
+    <h1 class="text-center">Freesources Main page</h1>
+    <h3 class="text-center">- presented by <a href="https://github.com/Team-Ace">Team ACE</a> at Columbia University</h3>
+{% endblock head_content %}
+
+{% block map_content %}
+    <div id="map" style="height: 500px"></div>
+<script>
+
+    var map = L.map('map').setView([40.807722, -73.964110], 16);
+
+    L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.jpg', {
+        maxZoom: 18,
+        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
+    }).addTo(map);
+
+
+    map.on('click', addEvent(this,'{{form}}'));
+
+
+</script>
+    
+        <!-- Modal -->
+        <div id="submitEvent" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirm New Event Submission</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure to submit new event?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirmSubmitEvent">Confirm</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+{% endblock map_content %}
