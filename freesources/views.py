@@ -6,8 +6,6 @@ from django.db import connection
 from django.contrib.auth.decorators import login_required
 from .forms import eventForm
 
-from django.contrib.auth.decorators import login_required
-
 
 # Index page, with map and markers
 def index(request):
@@ -50,7 +48,7 @@ def dictfetchall(cursor):
     ]
 
 # feedback adding view, require user to be logged in
-from django.contrib.auth.decorators import login_required
+@login_required
 def feedback(request,fd_type,event_id):
     with connection.cursor() as cursor:
         cursor.execute("INSERT INTO Feedback (event_id,feedback_type,user_id) VALUES (%s, %s, %s)",

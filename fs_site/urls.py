@@ -18,5 +18,8 @@ from django.contrib import admin
 
 urlpatterns = [
 	url(r'^freesources/', include('freesources.urls')),
+	url(r'^$', include('freesources.urls')),
     url(r'^admin/', admin.site.urls),
+    # for allauth
+    url(r'^accounts/', include('allauth.urls')),
 ]
