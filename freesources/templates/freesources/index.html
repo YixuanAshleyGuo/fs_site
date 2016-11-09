@@ -6,6 +6,7 @@
 
 {% block map_content %}
     <div id="map" style="height: 500px"></div>
+
 <script>
 
     var map = L.map('map').setView([40.807722, -73.964110], 16);
@@ -91,12 +92,14 @@
 
 <!--     temporary adding event function, to be improved later      -->
     <h3>Enter new event information</h3>
-    <form class = "form-horizontal" action="" method="POST">
-        {% csrf_token %}
-        {{form.as_table}}
-        <br>
-        <button class="btn btn-primary" type="submit">Submit new event</button>
-    </form>
+        <div id="form" style="display: none;">
+            <form class = "form-horizontal" action="" method="POST">
+                {% csrf_token %}
+                {{form.as_table}}
+                <br>
+                <button class="btn btn-primary" type="submit">Submit new event</button>
+            </form>
+        </div>
 
     <h2 class="text-center">Events table information list (for debug use only)</h2>
     <table class="table">
