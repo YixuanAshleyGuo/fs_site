@@ -106,6 +106,26 @@ AUTHENTICATION_BACKENDS = (
 # redirect the login url(default is to profile)
 LOGIN_REDIRECT_URL = ('/freesources/')
 
+# Email / SMTP
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'cyixuan568@gmail.com'
+EMAIL_HOST_PASSWORD = '2GrMU6W5Y9J5kcJjSmTo'
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'Freesources Test <cyixuan568@gmail.com>'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Django Allauth
+# Use email for primary identification
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email' 
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+
+# For convenience
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+
 WSGI_APPLICATION = 'fs_site.wsgi.application'
 
 
