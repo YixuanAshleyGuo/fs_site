@@ -1,7 +1,8 @@
 {% extends 'freesources/base.html' %}
 {% block head_content %}
-    <h1 class="text-center">Freesources Main page</h1>
-    <h3 class="text-center">- presented by <a href="https://github.com/Team-Ace">Team ACE</a> at Columbia University</h3>
+   <!--  <h1 class="text-center">Freesources Main page</h1>
+    <h3 class="text-center">- presented by <a href="https://github.com/Team-Ace">Team ACE</a> at Columbia University</h3> -->
+    <div style = "height: 100px"></div>
 {% endblock head_content %}
 
 {% block map_content %}
@@ -91,7 +92,6 @@
 </script>
 
 <!--     temporary adding event function, to be improved later      -->
-    <h3>Enter new event information</h3>
         <div id="form" style="display: none;">
             <form class = "form-horizontal" action="" method="POST">
                 {% csrf_token %}

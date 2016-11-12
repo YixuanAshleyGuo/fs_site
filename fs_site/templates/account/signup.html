@@ -1,0 +1,42 @@
+{% extends 'account/base.html' %}
+
+{% load i18n %}
+{% load bootstrap3 %}
+
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block title %}{% trans "Sign In" %}{% endblock title %}
+
+{% block main_content %}
+    {% block head_content %}
+    {% endblock head_content %} 
+    
+    
+	{% block user_content %}
+	
+	<section id="login">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+				<div class="form-wrap">
+					<h1>{% trans "Sign up for Freesources" %}</h1>
+						<form id= "login-form" method="POST" action="{% url 'account_login' %}">
+						  {% csrf_token %}
+						  {% bootstrap_form form %}
+						  {% if redirect_field_value %}
+						  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+						  {% endif %}			  
+						  <button id = "btn-login" class="primaryAction btn btn-custom btn-block btn-lg" type="submit">{% trans "Sign up" %}</button>
+						</form>
+						<hr>
+						<p style="text-align: center">{% blocktrans %}Already have an account?
+	<a href="{{ login_url }}">sign in</a> directly.{% endblocktrans %}</p>
+				</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	{% endblock user_content %}
+
+{% endblock main_content %}
+

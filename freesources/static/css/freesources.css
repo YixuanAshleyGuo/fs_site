@@ -1,6 +1,6 @@
 body{
 	font-family: Georgia, serif;
-    padding: 20px;
+    padding: 30px;
     background-color: aliceblue;
 }
 a:hover{
@@ -8,4 +8,13 @@ a:hover{
 }
 #map {
   padding: 20px;
+}
+
+.navbar-brand {
+  padding: 0px;
+}
+.navbar-brand>img {
+  height: 100%;
+  padding: 5px;
+  width: auto;
 }
