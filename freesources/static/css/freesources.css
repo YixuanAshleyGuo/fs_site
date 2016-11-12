@@ -18,3 +18,20 @@ a:hover{
   padding: 5px;
   width: auto;
 }
+
+tr.rej_exp{
+	color:orange;
+}
+tr.rej_false{
+	color: red;
+}
+tr.confirm{
+	color: green;
+}
+
+#fd_before{
+	display: none;
+}
+#fd_after{
+	display: none;
+}

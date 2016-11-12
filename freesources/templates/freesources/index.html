@@ -41,11 +41,23 @@
                 popup += '{{event.expiration}}';
                 popup += "</td></tr>";
 
+                popup += "<tr><th>Overall Feedback</th>";
+                popup += "<td><table class=\"table\"><tr class=\"confirm\"><th>Confirm</th><td>";
+                popup += '{{event.confirm}}';
+                popup += "</td></tr><tr class=\"rej_false\"><th>Rejection - False Event</th><td>";
+                popup += '{{event.rej_false}}';
+                popup += "</td></tr><tr class=\"rej_exp\"><th>Rejection - Expired</th><td>";
+                popup += '{{event.rej_exp}}';
+                popup += "</td></tr></table></td></tr>";
+                
+                popup += "<tr><th>Your Feedback</th><td>";
+
+
                 if('{{event.feedback_type}}' == 'None'){
 
                    //        feedback buttons
                     var url = "{% url 'feedback' 'confirm' event.event_id %}";
-                    popup += '<tr><td>';
+                    popup += '<table class="table"><tr><td>';
                     popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-success btn-block" data-toggle="modal" data-target="#submitFeedback">Confirm</button></td><td></td></tr>';
 
                     url = "{% url 'feedback' 'rej_false' event.event_id %}";
@@ -54,20 +66,20 @@
 
                     url = "{% url 'feedback' 'rej_exp' event.event_id %}";
                     popup += '<tr><td>';
-                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-warning btn-block" data-toggle="modal" data-target="#submitFeedback">Reject - Expired</button></td></tr>';
+                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-warning btn-block" data-toggle="modal" data-target="#submitFeedback">Reject - Expired</button></td></tr></table>';
                 }
                 else{
-                    popup += "<tr><th><strong>Feedback</strong></th><td><strong>";
+                    popup += "<table>";
                     if('{{event.feedback_type}}' == 'confirm'){
-                        popup += "<div style=\"color:green\">Confirm</div>";
+                        popup += "<tr class=\"confirm\">Confirm</tr>";
                     }
                     else if('{{event.feedback_type}}' == 'rej_false'){
-                        popup += "<div style=\"color:red\">Rejection - False Event</div>";
+                        popup += "<tr class=\"rej_false\">Rejection - False Event</tr>";
                     }
                     else{
-                        popup += "<div style=\"color:#FF5733\">Rejection - Expired</div>";
+                        popup += "<tr class=\"rej_exp\">Rejection - Expired</tr>";
                     }
-                    popup += "</strong></td></tr>"
+                    popup += '<tr><button onclick="feedback(this,\''+ url +'\')" class="btn btn-primary btn-block">Change Feedback</button></tr></table>';
                 }
                 popup += "</table>";
                 marker.bindPopup(popup);
