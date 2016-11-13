@@ -92,14 +92,13 @@
                 marker.bindPopup(popup);
                 map.addLayer(marker);        
     {% endfor %}
-
     map.on('click', onMapClick);
 
 </script>
 
 
 <!--     temporary adding event function, to be improved later      -->
-        <div id="form" style="display: none;">
+        <div id="form" >
             <form class = "form-horizontal" action="" method="POST">
                 {% csrf_token %}
                 {{form.as_table}}

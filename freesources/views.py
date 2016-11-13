@@ -12,17 +12,19 @@ def index(request):
     # temporary adding event function, to be improved later
     #if this is a POST request
     if request.method == 'POST':
-        form = eventForm(request.POST)
+        form = eventForm(data=request.POST)
         #check for validation
         print("About to validate form")
         if form.is_valid():
             #form.save()
+            print("form is valid")
             data = form.cleaned_data
             with connection.cursor() as cursors:
                 cursors.execute("INSERT INTO Events (tag_id, longitude, latitude, location, description, expire_type, start_time, expiration) VALUES (%s,%s,%s,%s,%s,%s,%s,%s);",
                                 [data['tag_id'],data['longitude'],data['latitude'], data['location'], data['description'], data['exp_type'], data['start_time'],data['expiration']])
             return HttpResponseRedirect('/freesources/')
         else:
+            print("FAIL")
             HttpResponse("Adding new event not successful")
     elif request.method == 'GET':
         form = eventForm()

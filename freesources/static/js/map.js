@@ -46,8 +46,12 @@ function onMapClick(e) {
 
     
     var locations = document.getElementsByClassName('location');
-    for (var i = 0; i < locations.length; ++i)
+    var lat = document.getElementsByClassName('lag');
+    for (var i = 0; i < locations.length; ++i){
         locations[i].value = e.latlng.toString();
+        lat[i].value = "hello";
+        lng[i].value = "work";
+    }
 
     // Uncomment to center map on marker
     map.panTo(e.latlng);
@@ -58,16 +62,16 @@ function onMapClick(e) {
     });
     
     newMarker.unbindPopup();
-    //newMarker.focus();
+    // newMarker.focus();
     
-        // $.ajax({
-        //     url:'addEvent',
-        //     type:'POST',
-        //     data:{
-        //         csrfmiddlewaretoken: '{{ csrf_token }}',
-        //         latlng: e.latlng,
-        //     }
-        // })
+    //     $.ajax({
+    //         url:'addEvent',
+    //         type:'POST',
+    //         data:{
+    //             csrfmiddlewaretoken: '{{ csrf_token }}',
+    //             latlng: e.latlng,
+    //         }
+    //     })
     
     // Anytime the expression type is changed, show/hide certain elements
      $('.exp_type').on('input', function() {
