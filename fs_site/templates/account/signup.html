@@ -20,7 +20,7 @@
 				<div class="col-xs-12">
 				<div class="form-wrap">
 					<h1>{% trans "Sign up for Freesources" %}</h1>
-						<form id= "login-form" method="POST" action="{% url 'account_login' %}">
+						<form id= "login_form" method="POST" action="{% url 'account_signup' %}">
 						  {% csrf_token %}
 						  {% bootstrap_form form %}
 						  {% if redirect_field_value %}
