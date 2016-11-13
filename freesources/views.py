@@ -78,6 +78,9 @@ def dictfetchall(cursor):
 @login_required
 def feedback(request,fd_type,event_id):
     with connection.cursor() as cursor:
+        cursor.execute("DELETE FROM Feedback WHERE event_id = %s AND user_id = %s",
+            [event_id,request.user.id])
+
         cursor.execute("INSERT INTO Feedback (event_id,feedback_type,user_id) VALUES (%s, %s, %s)",
                       [event_id,fd_type,request.user.id])
     

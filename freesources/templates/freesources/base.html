@@ -17,6 +17,7 @@
         {% bootstrap_css %}
         <link rel="icon" href="{% static 'images/freesources_icon.png' %}">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'css/freesources.css' %}">
         <script src="{% static 'js/map.js' %}"></script>
         <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
@@ -76,6 +77,23 @@
     {% endblock map_content %}
 
 {% endblock main_content %}
+
+<footer class="footer">
+    <div class="container">
+    <hr>
+    <h4 class="text-center">2016 &copyright Freesources - Team Ace</h4>
+        <div class="text-center center-block">
+            <p class="txt-railway">This is a web application developed for an assignment in Advanced Software Engineering at <a href="www.columbia.edu">Columbia University</a>. Freesources aims to create database of free items for public use that is contributed to and maintained by users.
+            <br><strong> Author: Craig Rhodes, Yixuan Guo, Gergana Alteva, Erik Dyer.</strong></p>
+            <br />
+                <a href="https://github.com/Team-Ace/fs_site"><i id="social-gh" class="fa fa-github-square fa-3x social"></i></a>
+                <!-- <a href="https://www.facebook.com/bootsnipp"><i id="social-fb" class="fa fa-facebook-square fa-3x social"></i></a>
+                <a href="https://twitter.com/bootsnipp"><i id="social-tw" class="fa fa-twitter-square fa-3x social"></i></a>
+                <a href="https://plus.google.com/+Bootsnipp-page"><i id="social-gp" class="fa fa-google-plus-square fa-3x social"></i></a>
+                <a href="mailto:bootsnipp@gmail.com"><i id="social-em" class="fa fa-envelope-square fa-3x social"></i></a> -->
+        </div>
+    <hr>
+</footer>
 </body>
     
 </html>

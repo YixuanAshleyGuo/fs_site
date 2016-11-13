@@ -104,6 +104,3 @@ function feedback(event,url){
     
 }
 
-function feedback_change(event){
-    // #('fb_before').setAttribute('style', 'display: inline;');
-}

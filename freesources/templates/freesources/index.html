@@ -2,11 +2,11 @@
 {% block head_content %}
    <!--  <h1 class="text-center">Freesources Main page</h1>
     <h3 class="text-center">- presented by <a href="https://github.com/Team-Ace">Team ACE</a> at Columbia University</h3> -->
-    <div style = "height: 100px"></div>
+    <div style = "height: 50px"></div>
 {% endblock head_content %}
 
 {% block map_content %}
-    <div id="map" style="height: 500px"></div>
+    <div id="map" style="height: 800px"></div>
 
 <script>
 
@@ -42,20 +42,38 @@
                 popup += "</td></tr>";
 
                 popup += "<tr><th>Overall Feedback</th>";
-                popup += "<td><table class=\"table\"><tr class=\"confirm\"><th>Confirm</th><td>";
+                popup += "<td><table class=\"table table-bordered\"><tr class=\"bg-success\"><th>Confirm</th><td>";
                 popup += '{{event.confirm}}';
-                popup += "</td></tr><tr class=\"rej_false\"><th>Rejection - False Event</th><td>";
+                popup += "</td></tr><tr class=\"bg-danger\"><th>Rejection - False Event</th><td>";
                 popup += '{{event.rej_false}}';
-                popup += "</td></tr><tr class=\"rej_exp\"><th>Rejection - Expired</th><td>";
+                popup += "</td></tr><tr class=\"bg-warning\"><th>Rejection - Expired</th><td>";
                 popup += '{{event.rej_exp}}';
                 popup += "</td></tr></table></td></tr>";
-                
-                popup += "<tr><th>Your Feedback</th><td>";
-
+            
 
                 if('{{event.feedback_type}}' == 'None'){
 
-                   //        feedback buttons
+                }
+                if('{{event.feedback_type}}' != 'None'){
+                    popup += "<tr><th>Your Feedback</th><td><table>";
+                    if('{{event.feedback_type}}' == 'confirm'){
+                        popup += "<tr class=\"confirm\"><th>Confirm</th></tr>";
+                    }
+                    else if('{{event.feedback_type}}' == 'rej_false'){
+                        popup += "<tr class=\"rej_false\"><th>Rejection - False Event</th></tr>";
+                    }
+                    else{
+                        popup += "<tr class=\"rej_exp\"><th>Rejection - Expired</th></tr>";
+                    }
+                    popup += '<tr></tr></table></td></tr>\
+                    <tr><th>Change Feedback</th><td>';
+
+                }
+                else{
+                    popup += '<tr><th>Give Feedback</th><td>';
+                }
+
+                   //    change feedback buttons
                     var url = "{% url 'feedback' 'confirm' event.event_id %}";
                     popup += '<table class="table"><tr><td>';
                     popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-success btn-block" data-toggle="modal" data-target="#submitFeedback">Confirm</button></td><td></td></tr>';
@@ -66,21 +84,10 @@
 
                     url = "{% url 'feedback' 'rej_exp' event.event_id %}";
                     popup += '<tr><td>';
-                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-warning btn-block" data-toggle="modal" data-target="#submitFeedback">Reject - Expired</button></td></tr></table>';
-                }
-                else{
-                    popup += "<table>";
-                    if('{{event.feedback_type}}' == 'confirm'){
-                        popup += "<tr class=\"confirm\">Confirm</tr>";
-                    }
-                    else if('{{event.feedback_type}}' == 'rej_false'){
-                        popup += "<tr class=\"rej_false\">Rejection - False Event</tr>";
-                    }
-                    else{
-                        popup += "<tr class=\"rej_exp\">Rejection - Expired</tr>";
-                    }
-                    popup += '<tr><button onclick="feedback(this,\''+ url +'\')" class="btn btn-primary btn-block">Change Feedback</button></tr></table>';
-                }
+                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-warning btn-block" data-toggle="modal" data-target="#submitFeedback">Reject - Expired</button></td></tr></table></td></tr>';
+
+
+
                 popup += "</table>";
                 marker.bindPopup(popup);
                 map.addLayer(marker);        
@@ -88,20 +95,8 @@
 
     map.on('click', onMapClick);
 
-    // function submitEvent(event){
-    // $('submitEvent').one('click','#confirmSubmitEvent', function(e){
-    //     $.ajax({
-    //         url: 'addEvent',
-    //         type: 'POST',
-    //         data:{
-    //             csrfmiddlewaretoken: '{{ csrf_token }}',
-    //             form: ,
-    //         }
-    //     })
-    // })
-// }
-
 </script>
+
 
 <!--     temporary adding event function, to be improved later      -->
         <div id="form" style="display: none;">
