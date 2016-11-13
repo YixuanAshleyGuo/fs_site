@@ -16,6 +16,7 @@ def index(request):
     if request.method == 'POST':
         form = eventForm(request.POST)
         #check for validation
+        print("About to validate form")
         if form.is_valid():
             #form.save()
             data = form.cleaned_data

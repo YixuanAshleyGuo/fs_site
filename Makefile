@@ -11,7 +11,7 @@ run:
 
 # Use this target if you want a custom shell session in the image!
 interact: 
-	docker run -p "$(FS_PORT):$(FS_PORT)" -e "FS_PORT=$(FS_PORT)" -v "`pwd`:/usr/src/fs_site" -it craigrhodes/fs_site ./docker_interact_init.sh
+	docker run -p "$(FS_PORT):$(FS_PORT)" -p 80:80 -e "FS_PORT=$(FS_PORT)" -v "`pwd`:/usr/src/fs_site" -it craigrhodes/fs_site ./docker_interact_init.sh
 
 # Feel free to ignore this... just a way to get a custom build
 build:
