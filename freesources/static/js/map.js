@@ -1,4 +1,5 @@
 function onMapClick(e) {
+    
         //var geocodeService = L.esri.Geocoding.geocodeService();
 
         //map.on('click', function(e) {
@@ -6,16 +7,8 @@ function onMapClick(e) {
                 
             //});
         //});
-            
-            
-
     
-        // L.popup()
-            // .setLatLng(e.latlng)
-            // .setContent("You clicked the map at " + e.latlng.toString())
-            // .openOn(map);
-        var newMarker = new L.marker(e.latlng);
-        // var popup="this is a new click event added marker";
+            // var popup="this is a new click event added marker";
 /*
             var popup = "<h4>Event Details</h4>";
             popup += "<table class=\"table\">";
@@ -30,41 +23,54 @@ function onMapClick(e) {
             
             */
     
+
+    
+        // L.popup()
+            // .setLatLng(e.latlng)
+            // .setContent("You clicked the map at " + e.latlng.toString())
+            // .openOn(map);
+    
+    // Create marker at clicked location
+    var newMarker = new L.marker(e.latlng);
+    
+    // Create popup
     var form = document.getElementById("form");
     var popup = L.popup().setContent(form.cloneNode(true).innerHTML);
+        
+    // Set location to clicked location
     
-    console.log("bye");
-    
-    var location = document.getElementById('location');
-    location.value = e.latlng;
-    
+    // Bind and open popup upon adding the marker
     newMarker.bindPopup(popup);
     map.addLayer(newMarker);
     newMarker.openPopup();
+
     
+    var locations = document.getElementsByClassName('location');
+    for (var i = 0; i < locations.length; ++i)
+        locations[i].value = e.latlng.toString();
+
     // Uncomment to center map on marker
     map.panTo(e.latlng);
     
-    newMarker.on("popupclose", function(e) {
+    // Add event handler for popup close
+    newMarker.on('popupclose', function(e) {
         newMarker.remove();
     });
     
-    
+    newMarker.unbindPopup();
     //newMarker.focus();
+    
         // $.ajax({
         //     url:'addEvent',
         //     type:'POST',
         //     data:{
         //         csrfmiddlewaretoken: '{{ csrf_token }}',
-        //         laglng: e.latlng,
+        //         latlng: e.latlng,
         //     }
         // })
     
-        // TODO: Close other popups before opening this 
-    
     // Anytime the expression type is changed, show/hide certain elements
-    
-     $('#exp_type').on('input', function() {
+     $('.exp_type').on('input', function() {
         var value = $(this).val();
         var startTimeLabel = $('label')[2];
         var startTime = document.getElementById('start_time');
@@ -72,26 +78,26 @@ function onMapClick(e) {
         var expiration = document.getElementById('expiration');
         if (value != 'Permanent') {
             
-            console.log("not permanent");
+            console.log("Showing start time and expiration");
             
             // Show start time and expiration
-            startTime.setAttribute('style', 'display: inline;');
-            expiration.setAttribute('style', 'display: inline;');
+            startTime.disabled = false;
+            expiration.disabled = false;
             
             // Show labels
-            startTimeLabel.setAttribute('style', 'display: inline;');
-            expirationLabel.setAttribute('style', 'display: inline;');
+            startTimeLabel.style = 'display: inline;';
+            expirationLabel.style ='display: inline;';
         } else {
-            
-            console.log("permanent");
+                   
+            console.log("Hiding start time and expiration");
             
             // Hide start time and expiration
-            startTime.setAttribute('style', 'display: none;');
-            expiration.setAttribute('style', 'display: none;');
+            startTime.disabled = true;
+            expiration.disabled = true;
             
             // Hide labels
-            startTimeLabel.setAttribute('style', 'display: none;');
-            expirationLabel.setAttribute('style', 'display: none;');
+            startTimeLabel.style = 'display: none;';
+            expirationLabel.style = 'display: none;';
         }
     });
 }
