@@ -1,0 +1,63 @@
+body{
+	font-family: Georgia, serif;
+    padding: 30px;
+    background-color: aliceblue;
+}
+a:hover{
+    text-decoration: none;
+}
+#map {
+  padding: 20px;
+}
+
+.navbar-brand {
+  padding: 0px;
+}
+.navbar-brand>img {
+  height: 100%;
+  padding: 5px;
+  width: auto;
+}
+
+tr.rej_exp{
+	color:orange;
+}
+tr.rej_false{
+	color: red;
+}
+tr.confirm{
+	color: green;
+}
+
+.social:hover {
+     -webkit-transform: scale(1.1);
+     -moz-transform: scale(1.1);
+     -o-transform: scale(1.1);
+ }
+ .social {
+     -webkit-transform: scale(0.8);
+     /* Browser Variations: */
+     
+     -moz-transform: scale(0.8);
+     -o-transform: scale(0.8);
+     -webkit-transition-duration: 0.5s;
+     -moz-transition-duration: 0.5s;
+     -o-transition-duration: 0.5s;
+ }
+
+ #social-gh:hover{
+	color: #6E5494;
+ }
+  #social-fb:hover {
+     color: #3B5998;
+ }
+ #social-tw:hover {
+     color: #4099FF;
+ }
+ #social-gp:hover {
+     color: #d34836;
+ }
+ #social-em:hover {
+     color: #f39c12;
+ }
+

@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from . import views
+from freesources import views as f_views
 
 urlpatterns = [
 	url(r'^freesources/', include('freesources.urls')),
+	url(r'^$', f_views.index),
     url(r'^admin/', admin.site.urls),
+    # for allauth
+    url(r'^accounts/', include('allauth.urls')),
 ]
