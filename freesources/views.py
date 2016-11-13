@@ -6,8 +6,6 @@ from django.db import connection
 from django.contrib.auth.decorators import login_required
 from .forms import eventForm
 
-from django.contrib.auth.decorators import login_required
-
 
 # Index page, with map and markers
 def index(request):
@@ -32,8 +30,35 @@ def index(request):
 
 	#Event table inner join feedback, join tag table; pass result to index page to display on map
     with connection.cursor() as cursor:
-        cursor.execute("SELECT ev.*,t.tag_name,f.feedback_type FROM Events ev INNER JOIN Events e ON ev.event_id = e.event_id INNER JOIN Tag t ON ev.tag_id = t.tag_id LEFT JOIN Feedback f ON ev.event_id = f.event_id")
-        events = dictfetchall(cursor)       
+        cursor.execute("""SELECT ev.*,t.tag_name,f.feedback_type, f_rej_f.fb as rej_false, f_rej_e.fb as rej_exp, f_confirm.fb as confirm
+            FROM Events ev 
+            INNER JOIN Events e ON ev.event_id = e.event_id 
+            INNER JOIN Tag t ON ev.tag_id = t.tag_id 
+            LEFT JOIN Feedback f ON f.user_id = %s AND ev.event_id = f.event_id
+            LEFT JOIN (
+            SELECT f.event_id, COUNT(*) as fb FROM Feedback f WHERE f.feedback_type = 'rej_false' 
+            GROUP BY f.event_id
+            ) f_rej_f ON f_rej_f.event_id = ev.event_id
+            LEFT JOIN (
+            SELECT f.event_id, COUNT(*) as fb FROM Feedback f WHERE f.feedback_type = 'rej_exp' 
+            GROUP BY f.event_id
+            ) f_rej_e ON f_rej_e.event_id = ev.event_id
+            LEFT JOIN (
+            SELECT f.event_id, COUNT(*) as fb FROM Feedback f WHERE f.feedback_type = 'confirm' 
+            GROUP BY f.event_id
+            ) f_confirm ON f_confirm.event_id = ev.event_id
+            ;""",[request.user.id])
+            
+        # cursor.execute("""SELECT COUNT(*)
+        #     FROM 
+        #     LEFT JOIN Feedback f_rej_f ON f_rej_f.feedback_type = 'rej_false' AND ev.event_id = f_rej_f.event_id
+        #     LEFT JOIN Feedback f_rej_e ON f_rej_e.feedback_type = 'rej_exp' AND ev.event_id = f_rej_e.event_id
+        #     LEFT JOIN Feedback f_confirm ON f_confirm.feedback_type = 'confirm' AND ev.event_id = f_confirm.event_id
+        #     GROUP BY ev.event_id;
+        #     """,
+        #     [request.user.id])
+        events = dictfetchall(cursor)    
+  
     context = {
         'events': events,
         'form': form,
@@ -50,9 +75,12 @@ def dictfetchall(cursor):
     ]
 
 # feedback adding view, require user to be logged in
-from django.contrib.auth.decorators import login_required
+@login_required
 def feedback(request,fd_type,event_id):
     with connection.cursor() as cursor:
+        cursor.execute("DELETE FROM Feedback WHERE event_id = %s AND user_id = %s",
+            [event_id,request.user.id])
+
         cursor.execute("INSERT INTO Feedback (event_id,feedback_type,user_id) VALUES (%s, %s, %s)",
                       [event_id,fd_type,request.user.id])
     

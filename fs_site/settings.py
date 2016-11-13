@@ -45,12 +45,24 @@ PREREQ_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # The Django sites framework is required
+    'django.contrib.sites',
 ]
 
 THIRD_PARTY_APPS = [
     'bootstrap3',
     'folium',
+    # for allauth
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # ... include the providers you want to enable:
+    # 'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.facebook',
 ]
+
+SITE_ID = 1
 
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
@@ -82,6 +94,37 @@ TEMPLATES = [
         },
     },
 ]
+# for allauth
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+# redirect the login url(default is to profile)
+LOGIN_REDIRECT_URL = ('/freesources/')
+
+# Email / SMTP
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'cyixuan568@gmail.com'
+EMAIL_HOST_PASSWORD = '2GrMU6W5Y9J5kcJjSmTo'
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'Freesources Test <cyixuan568@gmail.com>'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Django Allauth
+# Use email for primary identification
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email' 
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+
+# For convenience
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
 
 WSGI_APPLICATION = 'fs_site.wsgi.application'
 
@@ -110,6 +153,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS':{
+        'min_length': 9,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -119,6 +165,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'teamace.freesources@gmail.com'
+EMAIL_HOST_PASSWORD = 'grapes1234'
 
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
@@ -136,5 +187,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(PROJECT_PATH,'static')
+]
 STATIC_URL = '/static/'
