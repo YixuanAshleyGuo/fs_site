@@ -17,6 +17,7 @@ class TestCase(TestCase):
         #         author=self.user,
         #         date=datetime.datetime.now())
         self.c = Client()
+        
 
     def test_post_creation(self):
         """
