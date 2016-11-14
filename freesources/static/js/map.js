@@ -46,12 +46,14 @@ function onMapClick(e) {
 
     
     var locations = document.getElementsByClassName('location');
-    var lat = document.getElementsByClassName('lag');
+    var lat = document.getElementsByClassName('lat');
+    var lng = document.getElementsByClassName('lng');
     for (var i = 0; i < locations.length; ++i){
         locations[i].value = e.latlng.toString();
-        lat[i].value = "hello";
-        lng[i].value = "work";
+        lat[i].value = e.latlng.lat.toFixed(6);
+        lng[i].value = e.latlng.lng.toFixed(6);
     }
+
 
     // Uncomment to center map on marker
     map.panTo(e.latlng);
@@ -76,17 +78,20 @@ function onMapClick(e) {
     // Anytime the expression type is changed, show/hide certain elements
      $('.exp_type').on('input', function() {
         var value = $(this).val();
-        var startTimeLabel = $('label')[2];
+        var startTimeLabel = $('label')[4];
         var startTime = document.getElementById('start_time');
-        var expirationLabel = $('label')[3];
+        var expirationLabel = $('label')[5];
         var expiration = document.getElementById('expiration');
         if (value != 'Permanent') {
             
             console.log("Showing start time and expiration");
             
             // Show start time and expiration
-            startTime.disabled = false;
-            expiration.disabled = false;
+            // startTime.disabled = false;
+            // expiration.disabled = false;
+
+            startTime.style = 'display: inline;';
+            expiration.style = 'display: inline;';
             
             // Show labels
             startTimeLabel.style = 'display: inline;';
@@ -96,8 +101,11 @@ function onMapClick(e) {
             console.log("Hiding start time and expiration");
             
             // Hide start time and expiration
-            startTime.disabled = true;
-            expiration.disabled = true;
+            // startTime.disabled = true;
+            // expiration.disabled = true;
+
+            startTime.style = 'display: none;';
+            expiration.style = 'display: none;';
             
             // Hide labels
             startTimeLabel.style = 'display: none;';
