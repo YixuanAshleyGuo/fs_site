@@ -46,11 +46,17 @@ function onMapClick(e) {
 
     
     var locations = document.getElementsByClassName('location');
-    for (var i = 0; i < locations.length; ++i)
+    var lat = document.getElementsByClassName('lat');
+    var lng = document.getElementsByClassName('lng');
+    for (var i = 0; i < locations.length; ++i){
         locations[i].value = e.latlng.toString();
+        lat[i].value = e.latlng.lat.toFixed(6);
+        lng[i].value = e.latlng.lng.toFixed(6);
+    }
+
 
     // Uncomment to center map on marker
-    map.panTo(e.latlng);
+    // map.panTo(e.latlng);
     
     // Add event handler for popup close
     newMarker.on('popupclose', function(e) {
@@ -58,31 +64,37 @@ function onMapClick(e) {
     });
     
     newMarker.unbindPopup();
-    //newMarker.focus();
+    // newMarker.focus();
     
-        // $.ajax({
-        //     url:'addEvent',
-        //     type:'POST',
-        //     data:{
-        //         csrfmiddlewaretoken: '{{ csrf_token }}',
-        //         latlng: e.latlng,
-        //     }
-        // })
+    //     $.ajax({
+    //         url:'addEvent',
+    //         type:'POST',
+    //         data:{
+    //             csrfmiddlewaretoken: '{{ csrf_token }}',
+    //             latlng: e.latlng,
+    //         }
+    //     })
     
     // Anytime the expression type is changed, show/hide certain elements
      $('.exp_type').on('input', function() {
         var value = $(this).val();
         var startTimeLabel = $('label')[2];
+       // console.log(startTimeLabel);
         var startTime = document.getElementById('start_time');
         var expirationLabel = $('label')[3];
+       // console.log(expirationLabel);
         var expiration = document.getElementById('expiration');
+        // console.log(value)
         if (value != 'Permanent') {
             
             console.log("Showing start time and expiration");
             
             // Show start time and expiration
-            startTime.disabled = false;
-            expiration.disabled = false;
+            // startTime.disabled = false;
+            // expiration.disabled = false;
+
+            startTime.style = 'display: inline;';
+            expiration.style = 'display: inline;';
             
             // Show labels
             startTimeLabel.style = 'display: inline;';
@@ -92,8 +104,11 @@ function onMapClick(e) {
             console.log("Hiding start time and expiration");
             
             // Hide start time and expiration
-            startTime.disabled = true;
-            expiration.disabled = true;
+            // startTime.disabled = true;
+            // expiration.disabled = true;
+
+            startTime.style = 'display: none;';
+            expiration.style = 'display: none;';
             
             // Hide labels
             startTimeLabel.style = 'display: none;';
@@ -106,6 +121,13 @@ function onMapClick(e) {
 function feedback(event,url){    
     $('#submitFeedback').one('click','#confirmSubmitFeedback', function(e){
         window.location.href = url;
+    })
+    
+}
+
+function additem(event){    
+    $('#submitItem').one('click','#confirmSubmitItem', function(e){
+        document.getElementById('submit_item').submit();
     })
     
 }
