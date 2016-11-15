@@ -56,7 +56,7 @@ function onMapClick(e) {
 
 
     // Uncomment to center map on marker
-    map.panTo(e.latlng);
+    // map.panTo(e.latlng);
     
     // Add event handler for popup close
     newMarker.on('popupclose', function(e) {
@@ -118,6 +118,13 @@ function onMapClick(e) {
 function feedback(event,url){    
     $('#submitFeedback').one('click','#confirmSubmitFeedback', function(e){
         window.location.href = url;
+    })
+    
+}
+
+function additem(event){    
+    $('#submitItem').one('click','#confirmSubmitItem', function(e){
+        document.getElementById('submit_item').submit();
     })
     
 }

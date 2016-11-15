@@ -99,12 +99,12 @@
 
 <!--     temporary adding event function, to be improved later      -->
         <div id="form" >
-            <form class = "form-horizontal" action="" method="POST">
+            <form id = "submit_item" class = "form-horizontal" action="" method="POST">
                 {% csrf_token %}
                 {{form.as_table}}
                 <br>
-                <button class="btn btn-primary" type="submit">Submit new event</button>
             </form>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#submitItem" onclick="additem(this)">Submit new event</button>
         </div>
 
     <h2 class="text-center">Events table information list (for debug use only)</h2>
@@ -127,7 +127,29 @@
         {% endfor %}
     </table>
     
-        <!-- Modal -->
+        <!-- Modal for add item confirmation -->
+        <div id="submitItem" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirm Item/Event Submission</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure to submit this item/event?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirmSubmitItem">Confirm</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Modal for submit feedback confirmation -->
         <div id="submitFeedback" class="modal fade" role="dialog">
           <div class="modal-dialog">
 
