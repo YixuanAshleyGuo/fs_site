@@ -78,10 +78,13 @@ function onMapClick(e) {
     // Anytime the expression type is changed, show/hide certain elements
      $('.exp_type').on('input', function() {
         var value = $(this).val();
-        var startTimeLabel = $('label')[4];
+        var startTimeLabel = $('label')[2];
+       // console.log(startTimeLabel);
         var startTime = document.getElementById('start_time');
-        var expirationLabel = $('label')[5];
+        var expirationLabel = $('label')[3];
+       // console.log(expirationLabel);
         var expiration = document.getElementById('expiration');
+        // console.log(value)
         if (value != 'Permanent') {
             
             console.log("Showing start time and expiration");
