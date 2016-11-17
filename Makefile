@@ -17,6 +17,9 @@ interact:
 build:
 	docker build -t craigrhodes/fs_site .
 
+test:
+	docker run -p "$(FS_PORT):$(FS_PORT)" -e "FS_PORT=$(FS_PORT)" -v "`pwd`:/usr/src/fs_site" -it craigrhodes/fs_site ./docker_test.sh
+
 # Use this to clean up a custom fs-site image and .pyc files
 clean:
 	docker rmi fs-site

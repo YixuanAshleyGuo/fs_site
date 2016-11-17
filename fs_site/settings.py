@@ -135,11 +135,14 @@ WSGI_APPLICATION = 'fs_site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'FreeSource',
+        'NAME': 'FreeSource',	
         'USER': 'teamace',
         'PASSWORD': 'freesource',
         'HOST': '',
         'PORT': '',
+		'TEST': {
+			'NAME': 'FreeSource_test',
+		},
     }
 }
 
