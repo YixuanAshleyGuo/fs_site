@@ -5,20 +5,13 @@
 # Start MySQL
 service mysql start
 
-# Create DB
-echo "CREATE DATABASE FreeSource;" | mysql -u root --password=$FS_PASS 2>/dev/null
-
 # Create user with full permissions
 echo "CREATE USER 'teamace'@'localhost' IDENTIFIED BY 'freesource'; FLUSH PRIVILEGES;" | mysql -u root --password=${FS_PASS} 2>/dev/null
 
 # Alter user permissions
 echo "GRANT ALL ON *.* to teamace@localhost;" | mysql -u root --password=$FS_PASS 2>/dev/null
 
-# Initialize database
-echo "Initializing database..."
-mysql -u root --password=$FS_PASS FreeSource < Freesources_demo1.sql 2>/dev/null
-
 # Make database migrations before running project (in case model updated)
 echo "Making migrations..."
-python manage.py makemigrations freesources
-python manage.py migrate
+python manage.py makemigrations
+python manage.py test freesources
