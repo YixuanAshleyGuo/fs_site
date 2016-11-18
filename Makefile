@@ -2,7 +2,7 @@
 # Use 8000 as default port if none specified as environment variable
 FS_PORT ?= 8000
 
-.PHONY: build run clean interact
+.PHONY: build run clean interact 
 
 # Use this target with the FS_PORT environment variable set 
 #  if you want a port other than 8000.
@@ -15,7 +15,10 @@ interact:
 
 # Feel free to ignore this... just a way to get a custom build
 build:
-	docker build -t fs-site .
+	docker build -t craigrhodes/fs_site .
+
+test:
+	docker run -p "$(FS_PORT):$(FS_PORT)" -e "FS_PORT=$(FS_PORT)" -v "`pwd`:/usr/src/fs_site" -it craigrhodes/fs_site ./docker_test.sh
 
 # Use this to clean up a custom fs-site image and .pyc files
 clean:
