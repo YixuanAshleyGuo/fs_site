@@ -22,7 +22,7 @@ def index(request):
                 data = form.cleaned_data
                 with connection.cursor() as cursors:
                     cursors.execute("INSERT INTO Events (tag_id, longitude, latitude, location, description, expire_type, start_time, expiration) VALUES (%s,%s,%s,%s,%s,%s,%s,%s);",
-                                    [data['tag_id'],data['longitude'],data['latitude'], data['location'], data['description'], data['exp_type'], data['start_time'],data['expiration']])
+                                    [data['tag_name'],data['longitude'],data['latitude'], data['location'], data['description'], data['expiration_type'], data['start_time'],data['expiration']])
                 return HttpResponseRedirect('/freesources/')
             else:
                 print("FAIL")

@@ -20,7 +20,7 @@ from freesources import views as f_views
 
 urlpatterns = [
 	url(r'^freesources/', include('freesources.urls')),
-	url(r'^$', f_views.index),
+	url(r'^$', views.index),
     url(r'^admin/', admin.site.urls),
     # for allauth
     url(r'^accounts/', include('allauth.urls')),
