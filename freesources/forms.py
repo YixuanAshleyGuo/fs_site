@@ -16,7 +16,7 @@ TAG_ID = (
 	('6', 'Health Check-ups'),
 	('7', 'Water'),
 )
-class eventForm(forms.Form):
+class ItemForm(forms.Form):
     # tag_id = forms.ModelChoiceField(connection.cursor().execute("SELECT tag_id FROM Tag"))
     tag_name = forms.ChoiceField(choices = TAG_ID, widget=forms.Select(attrs={'class':'form-control'}))
     expiration_type = forms.ChoiceField(choices = EXP_TYPE, widget=forms.Select(attrs={'class':'form-control exp_type','id':'exp_type'}))
