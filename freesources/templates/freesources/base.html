@@ -17,6 +17,7 @@
         {% bootstrap_css %}
         <link rel="icon" href="{% static 'images/freesources_icon.png' %}">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'css/freesources.css' %}">
         <script src="{% static 'js/map.js' %}"></script>
@@ -28,6 +29,19 @@
 
     {% block base_head_script %}
         <script src="{% bootstrap_jquery_url %}"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            // for expand and collapse effect to handle multiple items at the same location
+            $( function() {
+                $( ".accordion" ).accordion({
+              collapsible: true
+            });
+                $( ".accordion-def" ).accordion({
+              collapsible: true, active: false 
+            });
+            });
+        </script>
         {% bootstrap_javascript %}
     {% endblock base_head_script %}
 

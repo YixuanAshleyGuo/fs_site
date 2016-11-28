@@ -21,7 +21,7 @@ def index(request):
                 print("form is valid")
                 data = form.cleaned_data
                 with connection.cursor() as cursors:
-                    cursors.execute("INSERT INTO fs_item (user_id, tag_id, longitude, latitude, location, description, expire_type, start_time, expiration) VALUES (%s,%s,%s,%s,%s,%s,%s,%s);",
+                    cursors.execute("INSERT INTO fs_item (user_id, tag_id, longitude, latitude, location, description, expire_type, start_time, expiration) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);",
                                     [request.user.id, data['tag_name'], data['longitude'],data['latitude'], data['location'], data['description'], data['expiration_type'], data['start_time'],data['expiration']])
                 return HttpResponseRedirect('/freesources/')
             else:
@@ -54,6 +54,7 @@ def index(request):
             SELECT f.item_id, COUNT(*) as fb FROM fs_feedback f WHERE f.feedback_type = 'confirm' 
             GROUP BY f.item_id
             ) f_confirm ON f_confirm.item_id = ev.item_id
+            ORDER BY ev.latitude, ev.longitude
             ;""",[request.user.id])
             
         # cursor.execute("""SELECT COUNT(*)

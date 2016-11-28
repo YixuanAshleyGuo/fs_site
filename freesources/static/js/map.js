@@ -117,6 +117,58 @@ function onMapClick(e) {
     });
 }
 
+function add_item(lats, lngs){
+    var locations = document.getElementsByClassName('location');
+    var lat = document.getElementsByClassName('lat');
+    var lng = document.getElementsByClassName('lng');
+    for (var i = 0; i < locations.length; ++i){
+        locations[i].value = "["+lats+","+lngs+"]";
+        lat[i].value = lats;
+        lng[i].value = lngs;
+    }
+        // Anytime the expression type is changed, show/hide certain elements
+     $('.exp_type').on('input', function() {
+        var value = $(this).val();
+        var startTimeLabel = $('label')[2];
+       // console.log(startTimeLabel);
+        var startTime = document.getElementById('start_time');
+        var expirationLabel = $('label')[3];
+       // console.log(expirationLabel);
+        var expiration = document.getElementById('expiration');
+        // console.log(value)
+        if (value != 'Permanent') {
+            
+            console.log("Showing start time and expiration");
+            
+            // Show start time and expiration
+            // startTime.disabled = false;
+            // expiration.disabled = false;
+
+            startTime.style = 'display: inline;';
+            expiration.style = 'display: inline;';
+            
+            // Show labels
+            startTimeLabel.style = 'display: inline;';
+            expirationLabel.style ='display: inline;';
+        } else {
+                   
+            console.log("Hiding start time and expiration");
+            
+            // Hide start time and expiration
+            // startTime.disabled = true;
+            // expiration.disabled = true;
+
+            startTime.style = 'display: none;';
+            expiration.style = 'display: none;';
+            
+            // Hide labels
+            startTimeLabel.style = 'display: none;';
+            expirationLabel.style = 'display: none;';
+        }
+    });
+
+}
+
 
 function feedback(event,url){    
     $('#submitFeedback').one('click','#confirmSubmitFeedback', function(e){
