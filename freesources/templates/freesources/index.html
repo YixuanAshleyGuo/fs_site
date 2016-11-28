@@ -7,97 +7,9 @@
 
 {% block map_content %}
     <div id="map" style="height: 800px"></div>
+    <div id="markers"></div>
 
-<script>
-
-    var map = L.map('map').setView([40.807722, -73.964110], 16);
-
-    L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.jpg', {
-        maxZoom: 18,
-        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
-    }).addTo(map);
-    
-    {% for event in events %}   
-       //    add marker to the map
-                var marker = new L.marker(['{{event.latitude}}','{{event.longitude}}']);
-                var popup = "<h4 id=\"'{{event.event_id}}'\">Event Details</h4>";
-                popup += "<table class=\"table\">";
-                popup += "<tr><th>Tag</th><td>";
-                popup += '{{event.tag_name}}';
-                popup += "</td></tr>";
-                popup += "<tr><th>Location</th><td>";
-                popup += '{{event.location}}';
-                popup += "</td></tr>";
-                popup += "<tr><th>Description</th><td>";
-                popup += '{{event.description}}';
-                popup += "</td></tr>";
-                popup += "<tr><th>Type</th><td>";
-                popup += '{{event.expire_type}}';
-                popup += "</td></tr>";
-                popup += "<tr><th>Start Time</th><td>";
-                popup += '{{event.start_time}}';
-                popup += "</td></tr>";
-                popup += "<tr><th>Expiration</th><td>";
-                popup += '{{event.expiration}}';
-                popup += "</td></tr>";
-
-                popup += "<tr><th>Overall Feedback</th>";
-                popup += "<td><table class=\"table table-bordered\"><tr class=\"bg-success\"><th>Confirm</th><td>";
-                popup += '{{event.confirm}}';
-                popup += "</td></tr><tr class=\"bg-danger\"><th>Rejection - False Event</th><td>";
-                popup += '{{event.rej_false}}';
-                popup += "</td></tr><tr class=\"bg-warning\"><th>Rejection - Expired</th><td>";
-                popup += '{{event.rej_exp}}';
-                popup += "</td></tr></table></td></tr>";
-            
-
-                if('{{event.feedback_type}}' == 'None'){
-
-                }
-                if('{{event.feedback_type}}' != 'None'){
-                    popup += "<tr><th>Your Feedback</th><td><table>";
-                    if('{{event.feedback_type}}' == 'confirm'){
-                        popup += "<tr class=\"confirm\"><th>Confirm</th></tr>";
-                    }
-                    else if('{{event.feedback_type}}' == 'rej_false'){
-                        popup += "<tr class=\"rej_false\"><th>Rejection - False Event</th></tr>";
-                    }
-                    else{
-                        popup += "<tr class=\"rej_exp\"><th>Rejection - Expired</th></tr>";
-                    }
-                    popup += '<tr></tr></table></td></tr>\
-                    <tr><th>Change Feedback</th><td>';
-
-                }
-                else{
-                    popup += '<tr><th>Give Feedback</th><td>';
-                }
-
-                   //    change feedback buttons
-                    var url = "{% url 'feedback' 'confirm' event.event_id %}";
-                    popup += '<table class="table"><tr><td>';
-                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-success btn-block" data-toggle="modal" data-target="#submitFeedback">Confirm</button></td><td></td></tr>';
-
-                    url = "{% url 'feedback' 'rej_false' event.event_id %}";
-                    popup += '<tr><td>';
-                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-danger btn-block" data-toggle="modal" data-target="#submitFeedback">Reject - False Event</button></td>';
-
-                    url = "{% url 'feedback' 'rej_exp' event.event_id %}";
-                    popup += '<tr><td>';
-                    popup += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-warning btn-block" data-toggle="modal" data-target="#submitFeedback">Reject - Expired</button></td></tr></table></td></tr>';
-
-
-
-                popup += "</table>";
-                marker.bindPopup(popup);
-                map.addLayer(marker);        
-    {% endfor %}
-    map.on('click', onMapClick);
-
-</script>
-
-
-<!--     temporary adding event function, to be improved later      -->
+<!--     temporary adding item function, to be improved later      -->
         <div id="form" style="display:none">
             <form id = "submit_item" class = "form-horizontal" action="" method="POST">
                 {% csrf_token %}
@@ -107,7 +19,154 @@
             <button class="btn btn-primary" data-toggle="modal" data-target="#submitItem" onclick="additem(this)">Submit New Item</button>
         </div>
 
-    <h2 class="text-center">Events table information list (for debug use only)</h2>
+<script>
+    // set the map and markers
+    var map = L.map('map').setView([40.807722, -73.964110], 16);
+
+    L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.jpg', {
+        maxZoom: 18,
+        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
+    }).addTo(map);
+    
+    var lat_prev = 0;
+    var lng_prev = 0;
+    var marker;
+    var popups = "";
+
+    var markers = document.getElementById("markers");
+    var idx = 0;
+
+    {% for item in items %}  
+                var lat_now = '{{item.latitude}}';
+                var lng_now = '{{item.longitude}}';
+
+                // define the current item's display table UI
+                // if(lat_prev == lat_now && lng_prev == lng_now){
+                //     popup = "";
+                // }
+                // else {
+                //     popup = "<div class=\"accordion\"><h3>";
+                // }   
+                popup = "<h3>";             
+                popup += '{{item.tag_name}}';
+                popup += " Item Details</h3><div>";
+                popup += "<table class=\"table\">";
+                popup += "<tr><th>Creator</th><td>";
+                popup += '{{item.username}}';
+                popup += "</td></tr>";
+                popup += "<tr><th>Tag</th><td>";
+                popup += '{{item.tag_name}}';
+                popup += "</td></tr>";
+                popup += "<tr><th>Location</th><td>";
+                popup += '{{item.location}}';
+                popup += "</td></tr>";
+                popup += "<tr><th>Description</th><td>";
+                popup += '{{item.description}}';
+                popup += "</td></tr>";
+                popup += "<tr><th>Type</th><td>";
+                popup += '{{item.expire_type}}';
+                popup += "</td></tr>";
+                popup += "<tr><th>Start Time</th><td>";
+                popup += '{{item.start_time}}';
+                popup += "</td></tr>";
+                popup += "<tr><th>Expiration</th><td>";
+                popup += '{{item.expiration}}';
+                popup += "</td></tr>";
+
+                popup += "<tr><th>Overall Feedback</th>";
+                popup += "<td><table class=\"table table-bordered\"><tr class=\"bg-success\"><th>Confirm</th><td>";
+                popup += '{{item.confirm}}';
+                popup += "</td></tr><tr class=\"bg-danger\"><th>Rejection - False Item</th><td>";
+                popup += '{{item.rej_false}}';
+                popup += "</td></tr><tr class=\"bg-warning\"><th>Rejection - Expired</th><td>";
+                popup += '{{item.rej_exp}}';
+                popup += "</td></tr></table></td></tr>";
+
+                var fd_part = "";
+                if('{{item.feedback_type}}' != 'None'){
+                    popup += "<tr><th>Your Feedback</th><td><table>";
+                    if('{{item.feedback_type}}' == 'confirm'){
+                        popup += "<tr class=\"confirm\"><th>Confirm</th></tr>";
+                    }
+                    else if('{{item.feedback_type}}' == 'rej_false'){
+                        popup += "<tr class=\"rej_false\"><th>Rejection - False Item</th></tr>";
+                    }
+                    else{
+                        popup += "<tr class=\"rej_exp\"><th>Rejection - Expired</th></tr>";
+                    }
+                    popup += '<tr></tr></table></td></tr>';
+
+                    fd_part = '<h3>Change Feedback</h3>';
+
+                }
+                else{
+                    fd_part = '<h3>Give Feedback</h3>';
+                }
+
+                   //    change feedback buttons
+                    var url = "{% url 'feedback' 'confirm' item.item_id %}";
+                    fd_part += '<div>';
+                    fd_part += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-success btn-block" data-toggle="modal" data-target="#submitFeedback">Confirm</button>';
+
+                    url = "{% url 'feedback' 'rej_false' item.item_id %}";
+                    fd_part += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-danger btn-block" data-toggle="modal" data-target="#submitFeedback">Reject - False Item</button>';
+
+                    url = "{% url 'feedback' 'rej_exp' item.item_id %}";
+                    fd_part += '<button onclick="feedback(this,\''+ url +'\')" class="btn btn-warning btn-block" data-toggle="modal" data-target="#submitFeedback">Reject - Expired</button></div>';
+                fd_part = "<div class=\"accordion-def\">"+fd_part+"</div>";
+                popup += '<tr><th>Feedback</th><td>' + fd_part + "</td></tr></table></div>";
+
+                // end of current item diaplay table UI
+
+
+                if(lat_prev == lat_now && lng_prev == lng_now){
+                    // console.log("find the same location");
+                    popups += popup;
+                    // marker.bindPopup("this is when multiple happens");
+                    // marker.bindPopup(popup);
+                    // map.addLayer(marker);  
+                    console.log("find multiple marker at"+'{{item.latitude}}'+','+'{{item.longitude}}');
+                }
+                else{                    
+                    if(popups != ""){
+                        popups = "<div class=\"accordion\">"+popups+"</div>";
+                        
+                        var mark = document.createElement("div");
+                        mark.id="marker"+idx;
+                        mark.insertAdjacentHTML('beforeend', popups);
+
+                        var addform = "<div class=\"accordion-def\"><h3>Add New Item</h3><div>"+document.getElementById("form").cloneNode(true).innerHTML+"</div></div>";
+                        var addforms = document.createElement("div");
+                        addforms.id = "addform"+idx;
+                        addforms.insertAdjacentHTML('beforeend', addform);
+
+                        var item_and_addform = document.createElement("div");
+                        item_and_addform.id = "item_and_addform"+idx;
+                        item_and_addform.appendChild(mark);
+                        item_and_addform.appendChild(addforms);
+
+                        markers.appendChild(item_and_addform);
+                        // call add_item function to finish the form autofill and other preparation stuff
+                        add_item('{{item.latitude}}','{{item.longitude}}');
+
+                        marker.bindPopup(document.getElementById("item_and_addform"+idx));
+                        map.addLayer(marker);  
+                        // increment idx by 1
+                        idx += 1;
+                    }
+                    popups = popup;
+                    lat_prev = lat_now;
+                    lng_prev = lng_now;
+                    //  add marker to the map
+                    marker = new L.marker(['{{item.latitude}}','{{item.longitude}}']);                
+                }      
+    {% endfor %}
+    map.on('click', onMapClick);
+</script>
+
+
+
+    <h2 class="text-center">Items table information list (for debug use only)</h2>
     <table class="table">
         <tr>
         <th>Tag</th>
@@ -116,13 +175,13 @@
         <th>Location</th>
         <th>Description</th>
         </tr>
-        {% for event in events %}
+        {% for item in items %}
         <tr>
-            <td>{{ event.tag_name }}</td>
-            <td>{{ event.start_time}}</td>
-            <td>{{ event.expiration}}</td>
-            <td>{{ event.location}}</td>
-            <td>{{ event.description}}</td>
+            <td>{{ item.tag_name }}</td>
+            <td>{{ item.start_time}}</td>
+            <td>{{ item.expiration}}</td>
+            <td>{{ item.location}}</td>
+            <td>{{ item.description}}</td>
             </tr>
         {% endfor %}
     </table>

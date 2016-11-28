@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import connection
 from django.contrib.auth.decorators import login_required
-from .forms import eventForm
+from .forms import ItemForm
 
 
 # Index page, with map and markers
@@ -14,7 +14,7 @@ def index(request):
     #if this is a POST request
     if request.method == 'POST':
         if request.user.is_authenticated():
-            form = eventForm(data=request.POST)
+            form = ItemForm(data=request.POST)
             #check for validation
             print("About to validate form")
             if form.is_valid():
@@ -22,8 +22,8 @@ def index(request):
                 print("form is valid")
                 data = form.cleaned_data
                 with connection.cursor() as cursors:
-                    cursors.execute("INSERT INTO Events (tag_id, longitude, latitude, location, description, expire_type, start_time, expiration) VALUES (%s,%s,%s,%s,%s,%s,%s,%s);",
-                                    [data['tag_id'],data['longitude'],data['latitude'], data['location'], data['description'], data['exp_type'], data['start_time'],data['expiration']])
+                    cursors.execute("INSERT INTO fs_item (user_id, tag_id, longitude, latitude, location, description, expire_type, start_time, expiration) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);",
+                                    [request.user.id, data['tag_name'], data['longitude'],data['latitude'], data['location'], data['description'], data['expiration_type'], data['start_time'],data['expiration']])
                 return HttpResponseRedirect('/freesources/')
             else:
                 print("FAIL")
@@ -31,29 +31,31 @@ def index(request):
         else:
             return HttpResponseRedirect('/accounts/login')
     elif request.method == 'GET':
-        form = eventForm()
+        form = ItemForm()
     else:
         return 0;
 
-	#Event table inner join feedback, join tag table; pass result to index page to display on map
+	#item table inner join feedback, join tag table; pass result to index page to display on map
     with connection.cursor() as cursor:
-        cursor.execute("""SELECT ev.*,t.tag_name,f.feedback_type, f_rej_f.fb as rej_false, f_rej_e.fb as rej_exp, f_confirm.fb as confirm
-            FROM Events ev 
-            INNER JOIN Events e ON ev.event_id = e.event_id 
-            INNER JOIN Tag t ON ev.tag_id = t.tag_id 
-            LEFT JOIN Feedback f ON f.user_id = %s AND ev.event_id = f.event_id
+        cursor.execute("""SELECT ev.*,u.username, t.tag_name,f.feedback_type, f_rej_f.fb as rej_false, f_rej_e.fb as rej_exp, f_confirm.fb as confirm
+            FROM fs_item ev 
+            INNER JOIN fs_item e ON ev.item_id = e.item_id 
+            INNER JOIN auth_user u ON ev.user_id = u.id
+            INNER JOIN fs_tag t ON ev.tag_id = t.tag_id 
+            LEFT JOIN fs_feedback f ON f.user_id = %s AND ev.item_id = f.item_id
             LEFT JOIN (
-            SELECT f.event_id, COUNT(*) as fb FROM Feedback f WHERE f.feedback_type = 'rej_false' 
-            GROUP BY f.event_id
-            ) f_rej_f ON f_rej_f.event_id = ev.event_id
+            SELECT f.item_id, COUNT(*) as fb FROM fs_feedback f WHERE f.feedback_type = 'rej_false' 
+            GROUP BY f.item_id
+            ) f_rej_f ON f_rej_f.item_id = ev.item_id
             LEFT JOIN (
-            SELECT f.event_id, COUNT(*) as fb FROM Feedback f WHERE f.feedback_type = 'rej_exp' 
-            GROUP BY f.event_id
-            ) f_rej_e ON f_rej_e.event_id = ev.event_id
+            SELECT f.item_id, COUNT(*) as fb FROM fs_feedback f WHERE f.feedback_type = 'rej_exp' 
+            GROUP BY f.item_id
+            ) f_rej_e ON f_rej_e.item_id = ev.item_id
             LEFT JOIN (
-            SELECT f.event_id, COUNT(*) as fb FROM Feedback f WHERE f.feedback_type = 'confirm' 
-            GROUP BY f.event_id
-            ) f_confirm ON f_confirm.event_id = ev.event_id
+            SELECT f.item_id, COUNT(*) as fb FROM fs_feedback f WHERE f.feedback_type = 'confirm' 
+            GROUP BY f.item_id
+            ) f_confirm ON f_confirm.item_id = ev.item_id
+            ORDER BY ev.latitude, ev.longitude
             ;""",[request.user.id])
             
         # cursor.execute("""SELECT COUNT(*)
@@ -64,10 +66,10 @@ def index(request):
         #     GROUP BY ev.event_id;
         #     """,
         #     [request.user.id])
-        events = dictfetchall(cursor)    
+        items = dictfetchall(cursor)    
   
     context = {
-        'events': events,
+        'items': items,
         'form': form,
     }
     return render(request,'freesources/index.html', context)
@@ -83,12 +85,12 @@ def dictfetchall(cursor):
 
 # feedback adding view, require user to be logged in
 @login_required
-def feedback(request,fd_type,event_id):
+def feedback(request,fd_type,item_id):
     with connection.cursor() as cursor:
-        cursor.execute("DELETE FROM Feedback WHERE event_id = %s AND user_id = %s",
-            [event_id,request.user.id])
+        cursor.execute("DELETE FROM fs_feedback WHERE item_id = %s AND user_id = %s",
+            [item_id,request.user.id])
 
-        cursor.execute("INSERT INTO Feedback (event_id,feedback_type,user_id) VALUES (%s, %s, %s)",
-                      [event_id,fd_type,request.user.id])
+        cursor.execute("INSERT INTO fs_feedback (item_id,feedback_type,user_id) VALUES (%s, %s, %s)",
+                      [item_id,fd_type,request.user.id])
     
     return HttpResponseRedirect('/freesources/')
