@@ -9,7 +9,8 @@ from .forms import ItemForm
 
 # Index page, with map and markers
 def index(request):
-    # temporary adding item function, to be improved later
+    # temporary adding event function, to be improved later
+
     #if this is a POST request
     if request.method == 'POST':
         if request.user.is_authenticated():
