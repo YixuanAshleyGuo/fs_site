@@ -1,0 +1,333 @@
+No config file found, using default configuration
+************* Module freesources
+C:  1,0: Missing docstring
+************* Module freesources.admin
+C:  1,0: Missing docstring
+W:  4,0: Unused import admin
+************* Module freesources.apps
+C:  1,0: Missing docstring
+C:  7,0:FreesourcesConfig: Missing docstring
+************* Module freesources.forms
+C: 20,0: Line too long (92/80)
+C: 21,0: Line too long (103/80)
+C: 22,0: Line too long (137/80)
+C: 23,0: Line too long (125/80)
+C: 24,0: Line too long (125/80)
+C: 26,0: Line too long (98/80)
+C: 27,0: Line too long (220/80)
+C: 28,0: Line too long (113/80)
+C: 29,0: Line too long (219/80)
+C: 30,0: Line too long (123/80)
+C: 31,0: Line too long (166/80)
+C:  1,0: Missing docstring
+W: 19,0:ItemForm: Class has no __init__ method
+C: 19,0:ItemForm: Missing docstring
+C: 22,4:ItemForm: Comma not followed by a space
+    expiration_type = forms.ChoiceField(choices = EXP_TYPE, widget=forms.Select(attrs={'class':'form-control exp_type','id':'exp_type'}))
+                                                                                                                      ^^C: 27,4:ItemForm: Comma not followed by a space
+    start_time = forms.DateTimeField(required = False, input_formats=['%Y-%m-%dT%H:%M'], widget=forms.DateTimeInput(attrs={'class':'form-control','type':'datetime-local','id':'start_time'}),initial=datetime.now().time())
+                                                                                                                                                 ^^
+C: 29,4:ItemForm: Comma not followed by a space
+    expiration = forms.DateTimeField(required = False, input_formats=['%Y-%m-%dT%H:%M'],widget=forms.DateTimeInput(attrs={'class':'form-control','type':'datetime-local','id':'expiration'}),initial=datetime.now().time())
+                                                                                       ^^
+C: 30,4:ItemForm: Comma not followed by a space
+    description = forms.CharField(required = False, widget=forms.TextInput(attrs={'class':'form-control'}),max_length=1024)
+                                                                                                          ^^
+C: 31,4:ItemForm: Comma not followed by a space
+    location = forms.CharField(required = False, widget=forms.TextInput(attrs={'class':'form-control location', 'disabled': 'true', 'id': 'location'}),max_length=255)
+                                                                                                                                                      ^^
+R: 19,0:ItemForm: Too few public methods (0/2)
+W:  3,0: Unused import connection
+************* Module freesources.models
+C:  1,0: Missing docstring
+W:  4,0: Unused import models
+************* Module freesources.tests
+W: 20,0: Found indentation with tabs instead of spaces
+C: 23,0: Line too long (85/80)
+W: 26,0: Found indentation with tabs instead of spaces
+W: 27,0: Found indentation with tabs instead of spaces
+W: 28,0: Found indentation with tabs instead of spaces
+W: 32,0: Found indentation with tabs instead of spaces
+W: 33,0: Found indentation with tabs instead of spaces
+W: 36,0: Found indentation with tabs instead of spaces
+W: 38,0: Found indentation with tabs instead of spaces
+C: 39,0: Line too long (108/80)
+W: 39,0: Found indentation with tabs instead of spaces
+W: 42,0: Found indentation with tabs instead of spaces
+W: 43,0: Found indentation with tabs instead of spaces
+W: 45,0: Found indentation with tabs instead of spaces
+W: 46,0: Found indentation with tabs instead of spaces
+W: 48,0: Found indentation with tabs instead of spaces
+W: 49,0: Found indentation with tabs instead of spaces
+W: 51,0: Found indentation with tabs instead of spaces
+W: 52,0: Found indentation with tabs instead of spaces
+W: 54,0: Found indentation with tabs instead of spaces
+W: 55,0: Found indentation with tabs instead of spaces
+W: 57,0: Found indentation with tabs instead of spaces
+W: 58,0: Found indentation with tabs instead of spaces
+W: 62,0: Found indentation with tabs instead of spaces
+W: 65,0: Found indentation with tabs instead of spaces
+W: 66,0: Found indentation with tabs instead of spaces
+W: 67,0: Found indentation with tabs instead of spaces
+C: 70,0: Line too long (148/80)
+W: 70,0: Found indentation with tabs instead of spaces
+W: 71,0: Found indentation with tabs instead of spaces
+W: 72,0: Found indentation with tabs instead of spaces
+W: 74,0: Found indentation with tabs instead of spaces
+W: 75,0: Found indentation with tabs instead of spaces
+C: 80,0: Line too long (100/80)
+W: 84,0: Found indentation with tabs instead of spaces
+W: 85,0: Found indentation with tabs instead of spaces
+W: 88,0: Found indentation with tabs instead of spaces
+W: 89,0: Found indentation with tabs instead of spaces
+W: 90,0: Found indentation with tabs instead of spaces
+W: 93,0: Found indentation with tabs instead of spaces
+W: 96,0: Found indentation with tabs instead of spaces
+W: 97,0: Found indentation with tabs instead of spaces
+W: 98,0: Found indentation with tabs instead of spaces
+C:  1,0: Missing docstring
+F:  3,0: Unable to import 'allauth.account'
+E:  5,0: No name 'eventForm' in module 'freesources.forms'
+F:  6,0: Unable to import 'allauth.account.models'
+F:  7,0: Unable to import 'allauth.account.utils'
+F: 10,0: Unable to import 'allauth.utils'
+F: 16,0: Unable to import 'MySQLdb'
+C: 19,0:FreesourcesTestCase: Missing docstring
+C: 24,1:FreesourcesTestCase.setUp: Invalid name "setUp" for type method (should match [a-z_][a-z0-9_]{2,30}$)
+C: 32,1:FreesourcesTestCase.tearDown: Invalid name "tearDown" for type method (should match [a-z_][a-z0-9_]{2,30}$)
+E: 43,19:FreesourcesTestCase.test_index: Instance of 'WSGIRequest' has no 'status_code' member (but some types could not be inferred)
+E: 46,19:FreesourcesTestCase.test_index: Instance of 'WSGIRequest' has no 'status_code' member (but some types could not be inferred)
+E: 49,19:FreesourcesTestCase.test_index: Instance of 'WSGIRequest' has no 'status_code' member (but some types could not be inferred)
+E: 52,19:FreesourcesTestCase.test_index: Instance of 'WSGIRequest' has no 'status_code' member (but some types could not be inferred)
+E: 55,19:FreesourcesTestCase.test_index: Instance of 'WSGIRequest' has no 'status_code' member (but some types could not be inferred)
+E: 66,19:FreesourcesTestCase.test_add_marker: Instance of 'WSGIRequest' has no 'context' member (but some types could not be inferred)
+E: 67,19:FreesourcesTestCase.test_add_marker: Instance of 'WSGIRequest' has no 'status_code' member (but some types could not be inferred)
+E: 71,19:FreesourcesTestCase.test_add_marker: Instance of 'WSGIRequest' has no 'status_code' member (but some types could not be inferred)
+E: 72,19:FreesourcesTestCase.test_add_marker: Instance of 'WSGIRequest' has no 'context' member (but some types could not be inferred)
+E: 90,20:FreesourcesTestCase.test_add_feedback: Instance of 'WSGIRequest' has no 'status_code' member (but some types could not be inferred)
+E: 98,20:FreesourcesTestCase.test_add_feedback: Instance of 'WSGIRequest' has no 'status_code' member (but some types could not be inferred)
+W: 88,6:FreesourcesTestCase.test_add_feedback: Unused variable 'nums'
+R: 19,0:FreesourcesTestCase: Too many public methods (70/20)
+W:  8,0: Unused import get_user_model
+W:  9,0: Unused import RequestFactory
+W: 13,0: Unused import MessageMiddleware
+W: 11,0: Unused import AnonymousUser
+W: 16,0: Unused import MySQLdb
+W: 12,0: Unused import User
+W:  5,0: Unused import eventForm
+W:  6,0: Unused import EmailAddress
+W: 14,0: Unused import SessionMiddleware
+W:  7,0: Unused import user_email
+************* Module freesources.urls
+C:  7,0: Line too long (106/80)
+C:  1,0: Missing docstring
+C:  5,0: Invalid name "urlpatterns" for type constant (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+************* Module freesources.views
+C: 25,0: Line too long (194/80)
+C: 26,0: Line too long (211/80)
+W: 36,0: Unnecessary semicolon
+C: 38,0: Line too long (93/80)
+C: 40,0: Line too long (149/80)
+C: 63,0: Line too long (114/80)
+C: 64,0: Line too long (112/80)
+C: 65,0: Line too long (118/80)
+C: 90,0: Line too long (85/80)
+C: 93,0: Line too long (101/80)
+C:  1,0: Missing docstring
+W:  4,0: Reimport 'render' (imported line 1)
+C: 11,0:index: Missing docstring
+E: 20,15:index: Instance of 'ItemForm' has no 'is_valid' member
+E: 23,23:index: Instance of 'ItemForm' has no 'cleaned_data' member
+C: 40,8:index: Comma not followed by a space
+        cursor.execute("""SELECT ev.*,u.username, t.tag_name,f.feedback_type, f_rej_f.fb as rej_false, f_rej_e.fb as rej_exp, f_confirm.fb as confirm
+
+            ;""",[request.user.id])
+                ^^
+C: 75,4:index: Comma not followed by a space
+    return render(request,'freesources/index.html', context)
+                         ^^
+C: 78,0:dictfetchall: Missing docstring
+C: 88,0:feedback: Comma not followed by a space
+def feedback(request,fd_type,item_id):
+                    ^^
+C: 88,0:feedback: Missing docstring
+W:  4,0: Unused import redirect
+W:  4,0: Unused import get_object_or_404
+************* Module freesources.migrations
+C:  1,0: Missing docstring
+
+
+Report
+======
+110 statements analysed.
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |NC       |NC         |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |NC       |NC         |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |51     |0        |+51.00     |
++-----------+-------+---------+-----------+
+|refactor   |2      |0        |+2.00      |
++-----------+-------+---------+-----------+
+|warning    |58     |0        |+58.00     |
++-----------+-------+---------+-----------+
+|error      |14     |0        |+14.00     |
++-----------+-------+---------+-----------+
+
+
+
+% errors / warnings by module
+-----------------------------
+
++-------------------+------+--------+---------+-----------+
+|module             |error |warning |refactor |convention |
++===================+======+========+=========+===========+
+|freesources.tests  |85.71 |86.21   |50.00    |15.69      |
++-------------------+------+--------+---------+-----------+
+|freesources.views  |14.29 |6.90    |0.00     |31.37      |
++-------------------+------+--------+---------+-----------+
+|freesources.forms  |0.00  |3.45    |50.00    |35.29      |
++-------------------+------+--------+---------+-----------+
+|freesources.models |0.00  |1.72    |0.00     |1.96       |
++-------------------+------+--------+---------+-----------+
+|freesources.admin  |0.00  |1.72    |0.00     |1.96       |
++-------------------+------+--------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------+------------+
+|message id |occurrences |
++===========+============+
+|W0312      |39          |
++-----------+------------+
+|C0301      |25          |
++-----------+------------+
+|W0611      |15          |
++-----------+------------+
+|C0111      |15          |
++-----------+------------+
+|E1103      |11          |
++-----------+------------+
+|C0324      |8           |
++-----------+------------+
+|F0401      |5           |
++-----------+------------+
+|C0103      |3           |
++-----------+------------+
+|E1101      |2           |
++-----------+------------+
+|W0612      |1           |
++-----------+------------+
+|W0404      |1           |
++-----------+------------+
+|W0301      |1           |
++-----------+------------+
+|W0232      |1           |
++-----------+------------+
+|R0904      |1           |
++-----------+------------+
+|R0903      |1           |
++-----------+------------+
+|E0611      |1           |
++-----------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at -6.45/10
+
+External dependencies
+---------------------
+::
+
+    django
+      \-apps
+      | \-AppConfig (freesources.apps)
+      \-conf
+      | \-urls
+      |   \-url (freesources.urls)
+      \-contrib
+      | \-admin (freesources.admin)
+      | \-auth
+      | | \-decorators
+      | | | \-login_required (freesources.views)
+      | | \-get_user_model (freesources.tests)
+      | | \-models
+      | |   \-AnonymousUser (freesources.tests)
+      | |   \-User (freesources.tests)
+      | \-messages
+      | | \-middleware
+      | |   \-MessageMiddleware (freesources.tests)
+      | \-sessions
+      |   \-middleware
+      |     \-SessionMiddleware (freesources.tests)
+      \-db
+      | \-connection (freesources.views,freesources.forms)
+      | \-models (freesources.models)
+      \-forms (freesources.forms)
+      \-http
+      | \-HttpResponse (freesources.views)
+      | \-HttpResponseRedirect (freesources.views)
+      \-shortcuts
+      | \-get_object_or_404 (freesources.views)
+      | \-redirect (freesources.views)
+      | \-render (freesources.views)
+      \-test
+        \-TestCase (freesources.tests)
+        \-client
+        | \-RequestFactory (freesources.tests)
+        \-utils
+          \-override_settings (freesources.tests)
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |163    |71.81 |NC       |NC         |
++----------+-------+------+---------+-----------+
+|docstring |8      |3.52  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|comment   |35     |15.42 |NC       |NC         |
++----------+-------+------+---------+-----------+
+|empty     |21     |9.25  |NC       |NC         |
++----------+-------+------+---------+-----------+
+
+
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |9      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |3      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|method   |6      |NC         |NC         |100.00      |33.33    |
++---------+-------+-----------+-----------+------------+---------+
+|function |3      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
