@@ -1,0 +1,33 @@
+map.js
+Metrics
+
+There are 7 functions in this file.
+
+Function with the largest signature take 2 arguments, while the median is 1.
+
+Largest function has 16 statements in it, while the median is 1.
+
+The most complex function has a cyclomatic complexity value of 2 while the median is 1.
+Two warnings
+124Missing semicolon.
+131Missing semicolon.
+Three undefined variables
+34L
+38L
+44map
+79$
+80$
+81$
+84$
+122$
+129$
+Three unused variables
+1onMapClick
+121feedback
+128additem
+
+
+
+fixed || Not fixed
+missing semicolon on line 214variables come up as undefined when they are define in other file
+missing semicolon on line 131
