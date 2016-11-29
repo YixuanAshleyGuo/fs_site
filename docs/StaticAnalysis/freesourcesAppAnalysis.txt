@@ -1,4 +1,5 @@
 Static Analyzer used: Pylint  https://www.pylint.org/
+-----------------------------------------------------
 
 No config file found, using default configuration
 ************* Module freesources
