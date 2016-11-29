@@ -337,7 +337,8 @@ Statistics by type
 -------------------------------------------------
 Fixed 
 Reduced line lengths for lines in forms.py that were too long.
-
+Replaced all tabs in project with spaces
+[Our repo 'score' went up from -6 to -2]
 
 Not fixed:
 
