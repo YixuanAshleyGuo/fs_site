@@ -173,14 +173,14 @@ function add_item(lats, lngs){
 function feedback(event,url){    
     $('#submitFeedback').one('click','#confirmSubmitFeedback', function(e){
         window.location.href = url;
-    })
+    });
     
 }
 
 function additem(event){    
     $('#submitItem').one('click','#confirmSubmitItem', function(e){
         document.getElementById('submit_item').submit();
-    })
+    });
     
 }
 
