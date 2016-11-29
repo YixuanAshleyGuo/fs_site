@@ -341,4 +341,4 @@ Replaced all tabs in project with spaces
 [Our repo 'score' went up from -6 to -2]
 
 Not fixed:
-
+Many of the errors, like "missing docstring",  are documentation related. While good documentation is important, we feel that we should wait until after we complete our features before we document them. Some other errors say that modules aren't being used, when they are really being used in other folders.
