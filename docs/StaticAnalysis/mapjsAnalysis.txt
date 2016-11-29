@@ -28,6 +28,6 @@ Three unused variables
 
 
 
-fixed || Not fixed
-missing semicolon on line 214variables come up as undefined when they are define in other file
+                              fixed  || Not fixed
+missing semicolon on line 214             variables come up as undefined when they are define in other file
 missing semicolon on line 131
