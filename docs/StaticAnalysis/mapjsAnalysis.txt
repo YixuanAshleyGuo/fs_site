@@ -27,7 +27,10 @@ Three unused variables
 128additem
 
 
-
-                              fixed  || Not fixed
-missing semicolon on line 214             variables come up as undefined when they are define in other file
+-------------------------------------------------
+Fixed 
+missing semicolon on line 214            
 missing semicolon on line 131
+
+Not fixed:
+variables come up as undefined when they are defined in other file: This is not an actual error however, because the analyzer does not account for what has been defined in index.html. Code was inspected by Erik Dyer, recorded by Gergana Alteva.
