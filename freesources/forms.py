@@ -28,4 +28,4 @@ class ItemForm(forms.Form):
     #expiration = forms.DateTimeField(widget=forms.widgets.DateTimeInput(input_formats=["%d %b %Y %H:%M:%S %Z"]))
     expiration = forms.DateTimeField(required = False, input_formats=['%Y-%m-%dT%H:%M'],widget=forms.DateTimeInput(attrs={'class':'form-control','type':'datetime-local','id':'expiration'}),initial=datetime.now().time())
     description = forms.CharField(required = False, widget=forms.TextInput(attrs={'class':'form-control'}),max_length=1024)
-    location = forms.CharField(required = False, widget=forms.TextInput(attrs={'class':'form-control location', 'disabled': 'true', 'id': 'location'}),max_length=255)
+    location = forms.CharField(required = False, widget=forms.TextInput(attrs={'class':'form-control location', 'id': 'location'}),max_length=255)
