@@ -50,6 +50,79 @@
     
 </head>
 <body> 
+
+    <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
+    <nav id="sidebar-wrapper" style="background: black;">
+
+
+        <form>
+            <ul style="list-style-type: none; color: white;">
+                <li><input type="checkbox" class="tag-checkbox" name="AED" checked=true>&nbsp;AED</li>
+                <li><input type="checkbox" class="tag-checkbox" name="Food" checked=true>&nbsp;Food</li>
+                <li><input type="checkbox" class="tag-checkbox" name="Water" checked=true>&nbsp;Water</li>
+                <li><input type="checkbox" class="tag-checkbox" name="Vaccines" checked=true>&nbsp;Vaccines</li>
+                <li><input type="checkbox" class="tag-checkbox" name="Restroom" checked=true>&nbsp;Restroom</li>
+                <li><input type="checkbox" class="tag-checkbox" name="Event" checked=true>&nbsp;Event</li>
+                <li><input type="checkbox" class="tag-checkbox" name="Health Check-ups" checked=true>&nbsp;Health Check-ups</li>
+            </ul>
+        </form>
+
+
+    </nav>
+
+<script>
+    $(document).ready(function(){
+
+        function matchesFilter(itemData, checked) {
+
+            var tagName = itemData["tag_name"];
+            for (var i = 0; i < checked.length; i++) {
+                if (checked[i] == tagName) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        function filterMarkers(checked) {
+            
+            // Remove all markers
+            for (var i = 0; i < visibleMarkers.length; i++) {
+                visibleMarkers[i].remove();
+            }
+            visibleMarkers = [];
+
+            // Apply filter to markers
+            var marker;
+            var data;
+            for (var i = 0; i < storedMarkers.length; i++) {
+                marker = storedMarkers[i][0];
+                data = storedMarkers[i][1];
+                if (matchesFilter(data, checked)) {
+                    visibleMarkers.push(marker);
+                    map.addLayer(marker);
+                }
+            }
+            
+        }
+
+        $('input[type=checkbox]').click(function(){
+
+            // Get checked tags
+            var checkboxes = document.getElementsByClassName("tag-checkbox");
+            var checked = [];
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked)
+                    checked.push(checkboxes[i].name);
+            }
+
+            // Filter markers by tags
+            filterMarkers(checked);
+        });
+    });
+</script>
+
     <header class="banner">
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">

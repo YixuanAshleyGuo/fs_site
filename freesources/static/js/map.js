@@ -29,7 +29,7 @@ function onMapClick(e) {
             // .setLatLng(e.latlng)
             // .setContent("You clicked the map at " + e.latlng.toString())
             // .openOn(map);
-    
+
     // Create marker at clicked location
     var newMarker = new L.marker(e.latlng);
     
@@ -41,9 +41,14 @@ function onMapClick(e) {
     
     // Bind and open popup upon adding the marker
     newMarker.bindPopup(popup);
+    storedMarkers.push([newMarker, {}]);
+    visibleMarkers.push(newMarker);
     map.addLayer(newMarker);
     newMarker.openPopup();
 
+    for (var i = 0; i < storedMarkers.length; i++) {
+        console.log("Lat: " + storedMarkers[i][0].getLatLng().lat);
+    }
     
     var locations = document.getElementsByClassName('location');
     var lat = document.getElementsByClassName('lat');
@@ -60,6 +65,8 @@ function onMapClick(e) {
     
     // Add event handler for popup close
     newMarker.on('popupclose', function(e) {
+        storedMarkers.pop();
+        visibleMarkers.pop();
         newMarker.remove();
     });
     
