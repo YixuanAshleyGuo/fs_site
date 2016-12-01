@@ -1,7 +1,3 @@
-var marker_arr = [];
-var lat_arr = [];
-var lng_arr = [];
-
 function onMapClick(e) {
         
     // Create marker at clicked location
@@ -28,7 +24,7 @@ function onMapClick(e) {
     var lat = document.getElementsByClassName('lat');
     var lng = document.getElementsByClassName('lng');
     for (var i = 0; i < locations.length; ++i){
-        console.log("map.js - this is the "+i+" of the marker ["+ lat_arr[i]+","+lng_arr[i]+"] or ["+e.latlng.lat+","+e.latlng.lng+"]");      
+        console.log("map.js - this is the "+i+" of the marker ["+e.latlng.lat+","+e.latlng.lng+"]");      
 
         locations[i].value = i+" : "+e.latlng.toString();
         lat[i].value = e.latlng.lat;
@@ -47,57 +43,9 @@ function onMapClick(e) {
     });
     
     newMarker.unbindPopup();
-    // newMarker.focus();
-    
-    //     $.ajax({
-    //         url:'addEvent',
-    //         type:'POST',
-    //         data:{
-    //             csrfmiddlewaretoken: '{{ csrf_token }}',
-    //             latlng: e.latlng,
-    //         }
-    //     })
-    
-    // Anytime the expression type is changed, show/hide certain elements
-     $('.exp_type').on('input', function() {
-        var value = $(this).val();
-        var startTimeLabel = $('label')[2];
-       // console.log(startTimeLabel);
-        var startTime = document.getElementById('start_time');
-        var expirationLabel = $('label')[3];
-       // console.log(expirationLabel);
-        var expiration = document.getElementById('expiration');
-        // console.log(value)
-        if (value != 'Permanent') {
-            
-            console.log("Showing start time and expiration");
-            
-            // Show start time and expiration
-            // startTime.disabled = false;
-            // expiration.disabled = false;
 
-            startTime.style = 'display: inline;';
-            expiration.style = 'display: inline;';
-            
-            // Show labels
-            startTimeLabel.style = 'display: inline;';
-            expirationLabel.style ='display: inline;';
-        } else {
-                   
-            console.log("Hiding start time and expiration");
-            
-            // Hide start time and expiration
-            // startTime.disabled = true;
-            // expiration.disabled = true;
+    exp_type('');
 
-            startTime.style = 'display: none;';
-            expiration.style = 'display: none;';
-            
-            // Hide labels
-            startTimeLabel.style = 'display: none;';
-            expirationLabel.style = 'display: none;';
-        }
-    });
 }
 
 function onMapClickMark(){
@@ -105,21 +53,25 @@ function onMapClickMark(){
     var lat = document.getElementsByClassName('lat_mark');
     var lng = document.getElementsByClassName('lng_mark');
     for (var i = 0; i < locations.length; ++i){
-        console.log("map.js - additem_mark - this is the "+i+" of the marker ["+ lat_arr[i]+","+lng_arr[i]+"]");      
+        console.log("map.js - additem_mark - this is the "+i+" of the marker ["+storedMarkers[i][1]['lat']+","+storedMarkers[i][1]['lng']+"]");      
 
-        locations[i].value = idx+":["+lat_arr[i]+","+lng_arr[i]+"]";
-        lat[i].value = lat_arr[i];
-        lng[i].value = lng_arr[i];
+        locations[i].value = "No."+idx+" : Geolocation["+storedMarkers[i][1]['lat']+","+storedMarkers[i][1]['lng']+"]";
+        lat[i].value = storedMarkers[i][1]['lat'];
+        lng[i].value = storedMarkers[i][1]['lng'];
     }
+    exp_type('_mark');
+}
+
+function exp_type(str){
         // Anytime the expression type is changed, show/hide certain elements
-     $('.exp_type_mark').on('input', function() {
+     $('.exp_type'+str).on('input', function() {
         var value = $(this).val();
         var startTimeLabel = $('label')[2];
        // console.log(startTimeLabel);
-        var startTime = document.getElementById('start_time_mark');
+        var startTime = document.getElementById('start_time'+str);
         var expirationLabel = $('label')[3];
        // console.log(expirationLabel);
-        var expiration = document.getElementById('expiration_mark');
+        var expiration = document.getElementById('expiration'+str);
         // console.log(value)
         if (value != 'Permanent') {
             
