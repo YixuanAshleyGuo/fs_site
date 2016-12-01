@@ -29,6 +29,9 @@
         </div>
 
 <script>
+
+
+
     // set the map and markers
     var map = L.map('map').setView([40.807722, -73.964110], 16);
 
@@ -43,6 +46,8 @@
     var popups = "";
 
     var markers = document.getElementById("markers");
+    var storedMarkers = [];
+    var visibleMarkers = [];
     var idx = 0;
 
     {% for item in items %}  
@@ -134,7 +139,7 @@
                     // marker.bindPopup("this is when multiple happens");
                     // marker.bindPopup(popup);
                     // map.addLayer(marker);  
-                    console.log("find multiple marker at"+'{{item.latitude}}'+','+'{{item.longitude}}');
+                    //console.log("find multiple marker at"+'{{item.latitude}}'+','+'{{item.longitude}}');
                 }
                 else{                    
                     if(popups != ""){
@@ -167,7 +172,19 @@
                     lat_prev = lat_now;
                     lng_prev = lng_now;
                     //  add marker to the map
-                    marker = new L.marker([lat_now,lng_now]);
+
+                    marker = new L.marker(['{{item.latitude}}','{{item.longitude}}']);  
+
+                    markerData = {
+                        "lat" : "{{item.latitude}}",
+                        "lng" : "{{item.longitude}}",
+                        "tag_name": "{{item.tag_name}}",
+                    };
+
+                    storedMarkers.push([marker, markerData]);
+                    visibleMarkers.push(marker);              
+
+                    // TODO: Consolidate redundant code
                     marker_arr.push(marker);
                     lat_arr.push(lat_now);
                     lng_arr.push(lng_now);

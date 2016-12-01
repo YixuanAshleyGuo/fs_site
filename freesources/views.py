@@ -11,7 +11,7 @@ from .forms import ItemForm, ItemFormMark
 def index(request):
     # temporary adding event function, to be improved later
 
-    #if this is a POST request
+    # if this is a POST request
     if request.method == 'POST':
         if request.user.is_authenticated():
             form = ItemForm(data=request.POST)
@@ -68,7 +68,7 @@ def index(request):
         #     """,
         #     [request.user.id])
         items = dictfetchall(cursor)    
-  
+
     context = {
         'items': items,
         'form': form,
