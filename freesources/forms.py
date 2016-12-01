@@ -33,7 +33,6 @@ class ItemForm(forms.Form):
                 widget=forms.DateTimeInput(attrs={'class':'form-control','type':'datetime-local','id':'start_time'}),
                 initial=datetime.now().time())
     #expiration = forms.DateTimeField(widget=forms.widgets.DateTimeInput(input_formats=["%d %b %Y %H:%M:%S %Z"]))
-<<<<<<< HEAD
     expiration = forms.DateTimeField(required = False, input_formats=['%Y-%m-%dT%H:%M'],widget=forms.DateTimeInput(attrs={'class':'form-control','type':'datetime-local','id':'expiration'}),initial=datetime.now().time())
     description = forms.CharField(required = False, widget=forms.TextInput(attrs={'class':'form-control'}),max_length=1024)
     location = forms.CharField(required = False, widget=forms.TextInput(attrs={'class':'form-control location', 'id': 'location'}),max_length=255)
@@ -51,15 +50,3 @@ class ItemFormMark(forms.Form):
     expiration = forms.DateTimeField(required = False, input_formats=['%Y-%m-%dT%H:%M'],widget=forms.DateTimeInput(attrs={'class':'form-control','type':'datetime-local','id':'expiration_mark'}),initial=datetime.now().time())
     description = forms.CharField(required = False, widget=forms.TextInput(attrs={'class':'form-control'}),max_length=1024)
     location = forms.CharField(required = False, widget=forms.TextInput(attrs={'class':'form-control location_mark', 'id': 'location_mark'}),max_length=255)
-=======
-    expiration = forms.DateTimeField(required = False,
-                input_formats=['%Y-%m-%dT%H:%M'],
-                widget=forms.DateTimeInput(attrs={'class':'form-control','type':'datetime-local','id':'expiration'}),
-                initial=datetime.now().time())
-    description = forms.CharField(required = False, 
-                widget=forms.TextInput(attrs={'class':'form-control'}),
-                max_length=1024)
-    location = forms.CharField(required = False, 
-                widget=forms.TextInput(attrs={'class':'form-control location', 'disabled': 'true', 'id': 'location'}),
-                max_length=255)
->>>>>>> Team-Ace/master
