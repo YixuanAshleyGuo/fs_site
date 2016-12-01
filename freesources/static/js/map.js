@@ -1,35 +1,9 @@
+var marker_arr = [];
+var lat_arr = [];
+var lng_arr = [];
+
 function onMapClick(e) {
-    
-        //var geocodeService = L.esri.Geocoding.geocodeService();
-
-        //map.on('click', function(e) {
-            //geocodeService.reverse().latlng(e.latlng).run(function(error, result) {
-                
-            //});
-        //});
-    
-            // var popup="this is a new click event added marker";
-/*
-            var popup = "<h4>Event Details</h4>";
-            popup += "<table class=\"table\">";
-            popup += "<tr>";
-            popup += "<th>Tag</th>";
-            popup += "<td>"
-            popup += '<input id="marker-tag" type = "text">';
-            popup += "</td></tr>";
-            popup += '<tr><td>';
-            popup += '<button class="btn btn-success btn-block" onclick="addEvent(this, '+e.latlng.lat+','+e.latlng.lng+')">Submit Event</button></td><td></td></tr>';
-            popup += "</table>";
-            
-            */
-    
-
-    
-        // L.popup()
-            // .setLatLng(e.latlng)
-            // .setContent("You clicked the map at " + e.latlng.toString())
-            // .openOn(map);
-    
+        
     // Create marker at clicked location
     var newMarker = new L.marker(e.latlng);
     
@@ -49,9 +23,11 @@ function onMapClick(e) {
     var lat = document.getElementsByClassName('lat');
     var lng = document.getElementsByClassName('lng');
     for (var i = 0; i < locations.length; ++i){
-        locations[i].value = e.latlng.toString();
-        lat[i].value = e.latlng.lat.toFixed(6);
-        lng[i].value = e.latlng.lng.toFixed(6);
+        console.log("map.js - this is the "+i+" of the marker ["+ lat_arr[i]+","+lng_arr[i]+"] or ["+e.latlng.lat+","+e.latlng.lng+"]");      
+
+        locations[i].value = i+" : "+e.latlng.toString();
+        lat[i].value = e.latlng.lat;
+        lng[i].value = e.latlng.lng;
     }
 
 
@@ -117,24 +93,26 @@ function onMapClick(e) {
     });
 }
 
-function add_item(lats, lngs){
-    var locations = document.getElementsByClassName('location');
-    var lat = document.getElementsByClassName('lat');
-    var lng = document.getElementsByClassName('lng');
+function onMapClickMark(){
+    var locations = document.getElementsByClassName('location_mark');
+    var lat = document.getElementsByClassName('lat_mark');
+    var lng = document.getElementsByClassName('lng_mark');
     for (var i = 0; i < locations.length; ++i){
-        locations[i].value = "["+lats+","+lngs+"]";
-        lat[i].value = lats;
-        lng[i].value = lngs;
+        console.log("map.js - additem_mark - this is the "+i+" of the marker ["+ lat_arr[i]+","+lng_arr[i]+"]");      
+
+        locations[i].value = idx+":["+lat_arr[i]+","+lng_arr[i]+"]";
+        lat[i].value = lat_arr[i];
+        lng[i].value = lng_arr[i];
     }
         // Anytime the expression type is changed, show/hide certain elements
-     $('.exp_type').on('input', function() {
+     $('.exp_type_mark').on('input', function() {
         var value = $(this).val();
         var startTimeLabel = $('label')[2];
        // console.log(startTimeLabel);
-        var startTime = document.getElementById('start_time');
+        var startTime = document.getElementById('start_time_mark');
         var expirationLabel = $('label')[3];
        // console.log(expirationLabel);
-        var expiration = document.getElementById('expiration');
+        var expiration = document.getElementById('expiration_mark');
         // console.log(value)
         if (value != 'Permanent') {
             
@@ -181,6 +159,13 @@ function additem(event){
     $('#submitItem').one('click','#confirmSubmitItem', function(e){
         document.getElementById('submit_item').submit();
     });
+    
+}
+
+function additem_mark(event){    
+    $('#submitItemMark').one('click','#confirmSubmitItemMark', function(e){
+        document.getElementById('submit_item_mark').submit();
+    })
     
 }
 

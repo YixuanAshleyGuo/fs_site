@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import connection
 from django.contrib.auth.decorators import login_required
-from .forms import ItemForm
+from .forms import ItemForm, ItemFormMark
 
 
 # Index page, with map and markers
@@ -32,6 +32,7 @@ def index(request):
             return HttpResponseRedirect('/accounts/login')
     elif request.method == 'GET':
         form = ItemForm()
+        form_mark = ItemFormMark()
     else:
         return 0;
 
@@ -71,6 +72,7 @@ def index(request):
     context = {
         'items': items,
         'form': form,
+        'form_mark': form_mark,
     }
     return render(request,'freesources/index.html', context)
 
