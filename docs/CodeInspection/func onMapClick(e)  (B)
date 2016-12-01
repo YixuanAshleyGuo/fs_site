@@ -4,3 +4,8 @@ Reader: Gergana
 Recorder: Craig
 
 Notes:
+storedMarkers & visibleMarkers variables are both global variables for keeping track of markers in regards to filter functionality. 
+Perhaps models should be used for markers.
+line 20 - hardcoding of accessing data in a selected marker in storedMarkers
+  - what if data format is changed?
+line 27 - console.log() not needed
