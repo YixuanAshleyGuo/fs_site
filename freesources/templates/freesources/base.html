@@ -22,6 +22,9 @@
         <link rel="stylesheet" href="{% static 'css/freesources.css' %}">
         <script src="{% static 'js/map.js' %}"></script>
         <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+        <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet-src.js"></script>
+        <!-- Load Esri Leaflet from CDN -->
+        <script src="https://unpkg.com/esri-leaflet@2.0.6"></script>
 {% endblock base_head_css %}
 
     {% block head_css %}
@@ -68,6 +71,9 @@
 
 
     </nav>
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.2.1/dist/esri-leaflet-geocoder.css">
+    <script src="https://unpkg.com/esri-leaflet-geocoder@2.2.1"></script>
+    <div id="map" style="height: 800px"></div>
 
 <script>
     $(document).ready(function(){
@@ -107,7 +113,7 @@
         }
 
         $('input[type=checkbox]').click(function(){
-
+            // L.map('map').closePopup();
             // Get checked tags
             var checkboxes = document.getElementsByClassName("tag-checkbox");
             var checked = [];

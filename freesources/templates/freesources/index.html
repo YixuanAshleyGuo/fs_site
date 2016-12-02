@@ -6,7 +6,6 @@
 {% endblock head_content %}
 
 {% block map_content %}
-    <div id="map" style="height: 800px"></div>
     <div id="markers" style="height: 0; width: 0; overflow: hidden;"></div>
 
 <!--     temporary adding item function, to be improved later      -->
@@ -39,6 +38,8 @@
         maxZoom: 18,
         attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
     }).addTo(map);
+    
+    var geocodeService = L.esri.Geocoding.geocodeService();
     
     var lat_prev = 0;
     var lng_prev = 0;
