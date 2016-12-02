@@ -9,3 +9,5 @@ Perhaps models should be used for markers.
 line 20 - hardcoding of accessing data in a selected marker in storedMarkers
   - what if data format is changed?
 line 27 - console.log() not needed
+A lot of commented out code that should be parsed to determine usefulness. If not useful, perhaps it should just be removed.
+The asynchronous code is retrospectively a definite step in the right direction.
