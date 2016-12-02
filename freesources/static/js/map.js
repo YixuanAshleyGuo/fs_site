@@ -1,50 +1,63 @@
 function onMapClick(e) {
         
-    // Create marker at clicked location
-    var newMarker = new L.marker(e.latlng);
-    
-    // Create popup
-    var form = document.getElementById("form");
-    var popup = L.popup().setContent(form.cloneNode(true).innerHTML);
+    geocodeService.reverse().latlng(e.latlng).run(function(error, result) {
+        if(!result){
+            alert("Please find a valid address!");
+            // console.log("the location is unavailable");
+            return;
+        }
+      // L.marker(result.latlng).addTo(map).bindPopup(result.address.Match_addr).openPopup();
+        // Create marker at clicked location
+        var newMarker = new L.marker(e.latlng);
         
-    // Set location to clicked location
-    
-    // Bind and open popup upon adding the marker
-    newMarker.bindPopup(popup);
-    storedMarkers.push([newMarker, {}]);
-    visibleMarkers.push(newMarker);
-    map.addLayer(newMarker);
-    newMarker.openPopup();
+        // Create popup
+        var form = document.getElementById("form");
+        var popup = L.popup().setContent(form.cloneNode(true).innerHTML);
+            
+        // Set location to clicked location
+        
+        // Bind and open popup upon adding the marker
+        newMarker.bindPopup(popup);
+        storedMarkers.push([newMarker, {}]);
+        visibleMarkers.push(newMarker);
+        map.addLayer(newMarker);
+        newMarker.openPopup();
 
-    for (var i = 0; i < storedMarkers.length; i++) {
-        console.log("Lat: " + storedMarkers[i][0].getLatLng().lat);
-    }
-    
-    var locations = document.getElementsByClassName('location');
-    var lat = document.getElementsByClassName('lat');
-    var lng = document.getElementsByClassName('lng');
-    for (var i = 0; i < locations.length; ++i){
-        console.log("map.js - this is the "+i+" of the marker ["+e.latlng.lat+","+e.latlng.lng+"]");      
+        // for (var i = 0; i < storedMarkers.length; i++) {
+        //     console.log("Lat: " + storedMarkers[i][0].getLatLng().lat);
+        // }
+        
+        var locations = document.getElementsByClassName('location');
+        var lat = document.getElementsByClassName('lat');
+        var lng = document.getElementsByClassName('lng');
+        for (var i = 0; i < locations.length; ++i){
+            // console.log("map.js - this is the "+i+" of the marker ["+e.latlng.lat+","+e.latlng.lng+"]");      
 
-        locations[i].value = i+" : "+e.latlng.toString();
-        lat[i].value = e.latlng.lat;
-        lng[i].value = e.latlng.lng;
-    }
+            locations[i].value = result.address.Match_addr;
+            lat[i].value = e.latlng.lat;
+            lng[i].value = e.latlng.lng;
+        }
 
 
-    // Uncomment to center map on marker
-    // map.panTo(e.latlng);
-    
-    // Add event handler for popup close
-    newMarker.on('popupclose', function(e) {
-        storedMarkers.pop();
-        visibleMarkers.pop();
-        newMarker.remove();
+        // Uncomment to center map on marker
+        // map.panTo(e.latlng);
+        
+        // Add event handler for popup close
+        newMarker.on('popupclose', function(e) {
+            storedMarkers.pop();
+            visibleMarkers.pop();
+            newMarker.remove();
+        });
+        
+        newMarker.unbindPopup();
+
+        exp_type('');
+
+
+
     });
-    
-    newMarker.unbindPopup();
 
-    exp_type('');
+
 
 }
 
@@ -53,7 +66,7 @@ function onMapClickMark(){
     var lat = document.getElementsByClassName('lat_mark');
     var lng = document.getElementsByClassName('lng_mark');
     for (var i = 0; i < locations.length; ++i){
-        console.log("map.js - additem_mark - this is the "+i+" of the marker ["+storedMarkers[i][1]['lat']+","+storedMarkers[i][1]['lng']+"]");      
+        // console.log("map.js - additem_mark - this is the "+i+" of the marker ["+storedMarkers[i][1]['lat']+","+storedMarkers[i][1]['lng']+"]");      
 
         locations[i].value = "No."+idx+" : Geolocation["+storedMarkers[i][1]['lat']+","+storedMarkers[i][1]['lng']+"]";
         lat[i].value = storedMarkers[i][1]['lat'];

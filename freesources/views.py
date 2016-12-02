@@ -4,7 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import connection
 from django.contrib.auth.decorators import login_required
-from .forms import ItemForm, ItemFormMark
+from .forms import ItemForm, ItemFormMark,TagSuggestion
+from datetime import timedelta
 
 
 # Index page, with map and markers
@@ -21,9 +22,10 @@ def index(request):
                 #form.save()
                 print("form is valid")
                 data = form.cleaned_data
+                print(data['start_time'])
                 with connection.cursor() as cursors:
                     cursors.execute("INSERT INTO fs_item (user_id, tag_id, longitude, latitude, location, description, expire_type, start_time, expiration) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);",
-                                    [request.user.id, data['tag_name'], data['longitude'],data['latitude'], data['location'], data['description'], data['expiration_type'], data['start_time'],data['expiration']])
+                                    [request.user.id, data['tag_name'], data['longitude'],data['latitude'], data['location'], data['description'], data['expiration_type'], data['start_time'] - timedelta(hours=5),data['expiration'] - timedelta(hours=5)])
                 return HttpResponseRedirect('/freesources/')
             else:
                 print("FAIL")
@@ -96,3 +98,8 @@ def feedback(request,fd_type,item_id):
                       [item_id,fd_type,request.user.id])
     
     return HttpResponseRedirect('/freesources/')
+
+
+
+
+
