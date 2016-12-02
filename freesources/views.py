@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import connection
 from django.contrib.auth.decorators import login_required
-from .forms import ItemForm, ItemFormMark,TagSuggestion
+from .forms import ItemForm, ItemFormMark
 from datetime import timedelta
 
 
