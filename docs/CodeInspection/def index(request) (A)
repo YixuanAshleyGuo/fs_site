@@ -4,3 +4,6 @@ Reader: Yixuan
 Recorder: Erik
 
 Notes:
+1. The index function does not provide error message when the add item form is not valid and not inserted to database, user might get confused;
+2. The select sql script is very long and might cause user to wait for a long time before the index page is loaded;
+3. There are inserted javascript code in the index.html file, which is not very neat;
