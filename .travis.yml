@@ -1,0 +1,12 @@
+sudo: required
+
+language: python
+
+services:
+  - docker
+
+before_install:
+  - docker pull craigrhodes/fs_site
+
+script: 
+- docker run craigrhodes/fs_site -e "FS_PORT=8000" -p 8000:8000 ./docker_test.sh
