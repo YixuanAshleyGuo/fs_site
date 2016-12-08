@@ -1,0 +1,20 @@
+Name                                     Stmts   Miss  Cover
+------------------------------------------------------------
+freesources/__init__.py                      0      0   100%
+freesources/admin.py                         2      0   100%
+freesources/apps.py                          4      4     0%
+freesources/forms.py                        26      0   100%
+freesources/migrations/0001_initial.py       6      0   100%
+freesources/migrations/__init__.py           0      0   100%
+freesources/models.py                        7      0   100%
+freesources/tests.py                        48      9    81%
+freesources/urls.py                          3      0   100%
+freesources/views.py                        39     21    46%
+fs_site/__init__.py                          0      0   100%
+fs_site/settings.py                         43      0   100%
+fs_site/urls.py                              5      0   100%
+fs_site/views.py                             5      1    80%
+fs_site/wsgi.py                              4      4     0%
+manage.py                                   13      6    54%
+------------------------------------------------------------
+TOTAL                                      205     45    78%
