@@ -23,9 +23,17 @@ def index(request):
                 print("form is valid")
                 data = form.cleaned_data
                 print(data['start_time'])
+                if(data['start_time'] == 'None'):
+                    start_time = data['start_time']
+                else:
+                    start_time = data['start_time'] - timedelta(hours=5)
+                if(data['expiration'] == 'None'):
+                    expiration = data['expiration']
+                else:
+                    expiration = data['expiration'] - timedelta(hours=5)
                 with connection.cursor() as cursors:
                     cursors.execute("INSERT INTO fs_item (user_id, tag_id, longitude, latitude, location, description, expire_type, start_time, expiration) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);",
-                                    [request.user.id, data['tag_name'], data['longitude'],data['latitude'], data['location'], data['description'], data['expiration_type'], data['start_time'] - timedelta(hours=5),data['expiration'] - timedelta(hours=5)])
+                                    [request.user.id, data['tag_name'], data['longitude'],data['latitude'], data['location'], data['description'], data['expiration_type'], start_time,expiration])
                 return HttpResponseRedirect('/freesources/')
             else:
                 print("FAIL")
