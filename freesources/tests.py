@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from allauth.account import app_settings as account_settings
 from django.test import TestCase
-from freesources.forms import eventForm
+from freesources.forms import ItemForm
 from allauth.account.models import EmailAddress
 from allauth.account.utils import user_email
 from django.contrib.auth import get_user_model

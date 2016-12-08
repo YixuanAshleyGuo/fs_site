@@ -50,3 +50,7 @@ class ItemFormMark(forms.Form):
     expiration = forms.DateTimeField(required = False, input_formats=['%Y-%m-%dT%H:%M'],widget=forms.DateTimeInput(attrs={'class':'form-control','type':'datetime-local','id':'expiration_mark'}),initial=datetime.now().time())
     description = forms.CharField(required = False, widget=forms.TextInput(attrs={'class':'form-control'}),max_length=1024)
     location = forms.CharField(required = False, widget=forms.TextInput(attrs={'class':'form-control location_mark', 'id': 'location_mark'}),max_length=255)
+
+class TagSuggestion(forms.Form):
+    tag_title = forms.CharField(required = False, widget=forms.TextInput(attrs={'class':'form-control', 'id': 'tag_name'}),max_length=225)
+    tag_description = forms.CharField(required = False, widget=forms.TextInput(attrs={'class':'form-control', 'id': 'tag_description'}),max_length=225)
