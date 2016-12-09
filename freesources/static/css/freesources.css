@@ -9,7 +9,12 @@ a:hover{
 #map {
   padding: 20px;
 }
-
+.leaflet-popup-content { 
+     width:auto !important; 
+}
+.accordion{
+  width: 350px;
+}
 .navbar-brand {
   padding: 0px;
 }
