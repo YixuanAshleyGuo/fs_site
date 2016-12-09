@@ -11,7 +11,7 @@ from datetime import timedelta
 # Index page, with map and markers
 def index(request):
     # temporary adding event function, to be improved later
-
+    form_mark = ItemFormMark()
     # if this is a POST request
     if request.method == 'POST':
         if request.user.is_authenticated():
@@ -42,7 +42,6 @@ def index(request):
             return HttpResponseRedirect('/accounts/login')
     elif request.method == 'GET':
         form = ItemForm()
-        form_mark = ItemFormMark()
     else:
         return 0;
 
