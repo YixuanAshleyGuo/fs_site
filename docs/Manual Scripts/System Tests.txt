@@ -1,0 +1,70 @@
+Basic Test Case 1: Map manipulation
+1.	Go to home page.
+	a.	Should have a tool bar on the top
+	b.	Should have a map that contains existing items
+2.	Drag map, zoom in, zoom out.
+  	a.	Map should load new area when moved around
+	b.	Map should load more area when zoomed out
+	c.	Points on map should stay in correct place during map manipulation
+3.	Click map
+	a.	Popup to add a new point at click location should come up
+4.	Attempt to add a new item
+	a.	Should redirect to login screen
+5.	Go back, and click on existing point
+	a.	The point’s data should come up
+	b.	Attempt to add feedback
+		i.	Should redirect to login screen
+Basic Test Case 2: Toolbar and Filters
+1.	Go to home page
+	a.	Should not be logged in
+	b.	Should have toolbar with “Sign Up”, “Login” and three bars to expand filters.
+2.	Click the three bars to expand filters
+	a.	For each filter, select and unselect the filter
+		i.	Make sure the correct tags appear and disappear
+		ii.	Check the tags that get toggled fall under the same filter that is being toggled
+	b.	Does removing all the filters remove all the tags?
+Basic Test Case 3: Sign up and Sign in
+1.	Go to home page.
+	a.	Should Not be logged in
+	b.	Should have toolbar with “Sign Up”, “Login” and three bars to expand filters.
+2.	Click “Sign Up”
+	a.	Should redirect to Sign up page
+		i.	Should request Email, password, and password confirmation
+3.	Sign up using Email: “FakeUser@gmail.com” Password:”FakePassword!1”
+	a.	Should redirect to home page, logged in.
+	b.	Should have toolbar with “Welcome: FakeUser” and three bars.
+	c.	Click “Welcome: FakeUser” and sign out. 
+	d.	Should redirect to login page.
+		i.	 Login with the same credentials. 
+4.	Should be on home page, logged in. 
+	a.	Logout for next test.
+?
+
+Basic Test Case 4: Logged in content
+1.	Go to home page.
+	a.	Should Not be logged in
+	b.	Should have toolbar with “Sign Up”, “Login” and three bars to expand filters.
+2.	Click map
+	a.	Popup to add a new point at click location should come up
+3.	Attempt to add a new item
+	a.	Should redirect to login screen
+	b.	Login with fake credentials from Case 3
+4.	Attempt to add new item
+	a.	Set the expiration type to permanent
+	b.	Marker should show up permanently on map
+5.	Attempt to change feedback of item
+	a.	Click on marker that was just created
+	b.	There should be a “Give feedback button that shows up towards the bottom of the popup”
+	c.	Click button and choose “Confirm”
+		i.	Confirm this choice
+	d.	Click on marker again. The confirmation number should be increased to reflect your vote. 
+Invalid Location Test:
+1.	Go to home page.
+	a.	Should Not be logged in
+	b.	Should have toolbar with “Sign Up”, “Login” and three bars to expand filters.
+2.	Click on body of water in map
+	a.	No point should be added
+		i.	The request “Please find a valid address!” should pop up
+3.	Click on location that is far from current location
+	a.	No point should be added
+		i.	The request “Please find a valid address!” should pop up
