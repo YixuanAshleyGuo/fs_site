@@ -485,6 +485,53 @@ INSERT INTO `fs_tag` (`tag_id`, `tag_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `fs_tag_suggestion`
+--
+
+CREATE TABLE `fs_tag_suggestion` (
+  `tag_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `tag_title` varchar(255) NOT NULL,
+  `tag_description` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `fs_tag_suggestion`
+--
+ALTER TABLE `fs_tag_suggestion`
+  ADD PRIMARY KEY (`tag_id`),
+  ADD KEY `user_idx_tagsug` (`user_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `fs_tag_suggestion`
+--
+ALTER TABLE `fs_tag_suggestion`
+  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `fs_tag_suggestion`
+--
+ALTER TABLE `fs_tag_suggestion`
+  ADD CONSTRAINT `user_constraint_tagsug` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `socialaccount_socialaccount`
 --
 

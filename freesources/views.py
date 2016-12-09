@@ -23,11 +23,11 @@ def index(request):
                 print("form is valid")
                 data = form.cleaned_data
                 print(data['start_time'])
-                if(data['start_time'] == 'None'):
+                if data['start_time'] is None:
                     start_time = data['start_time']
                 else:
                     start_time = data['start_time'] - timedelta(hours=5)
-                if(data['expiration'] == 'None'):
+                if data['expiration'] is None:
                     expiration = data['expiration']
                 else:
                     expiration = data['expiration'] - timedelta(hours=5)
