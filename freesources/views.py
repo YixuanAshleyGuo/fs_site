@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import connection
 from django.contrib.auth.decorators import login_required
-from .forms import ItemForm, ItemFormMark
+from .forms import ItemForm, ItemFormMark, TagSuggestion
 from datetime import timedelta
 
 
@@ -106,6 +106,36 @@ def feedback(request,fd_type,item_id):
                       [item_id,fd_type,request.user.id])
     
     return HttpResponseRedirect('/freesources/')
+@login_required
+def tag_suggestion(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated():
+            form = TagSuggestion(data=request.POST)
+            #check for validation
+            print("About to validate form")
+            if form.is_valid():
+                #form.save()
+                print("form is valid")
+                data = form.cleaned_data
+                with connection.cursor() as cursors:
+                    #### was INSTER INTO fs_item
+                    cursors.execute("INSERT INTO fs_tag_suggestion (user_id, tag_title, tag_description) VALUES (%s,%s,%s);",[request.user.id, data['tag_title'], data['tag_description']])
+                    print("Successful execute!")
+                return HttpResponseRedirect('/freesources/')
+            else:
+                print("FAIL")
+                HttpResponse("Adding tag suggestion was not successful")
+        else:
+            return HttpResponseRedirect('/accounts/login')
+    elif request.method == 'GET':
+        form = TagSuggestion()
+    else:
+        return 0;
+    context = {
+        'form': form,
+    }
+    return render(request,'freesources/tag_suggestion.html', context)
+
 
 
 

@@ -1,0 +1,63 @@
+{% extends 'freesources/base.html' %}
+
+{% load i18n %}
+{% load bootstrap3 %}
+
+
+{% block head_title %}{% trans "Suggest a Tag" %}{% endblock %}
+{% block title %}{% trans "Suggest a Tag" %}{% endblock title %}
+
+{% block main_content %}
+    {% block head_content %}
+    {% endblock head_content %} 
+    
+    
+	{% block user_content %}
+	
+	<section id="suggest_tag">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+				<div class="form-wrap">
+					<h1>{% trans "Test" %}</h1>
+					<p class="forget">{% trans 'Still a test?' %}</p>
+            		<form id = "tag-form" class = "form-horizontal" action="" method="POST">
+					  	{% csrf_token %}
+                		{{form.as_table}}
+                		<br>
+					  
+					<p>Please note: this is a test.</p>
+					</form>
+					<button class="btn btn-primary" data-toggle="modal" data-target="#suggest_tag_modal" onclick="confim_suggestion(this)">Submit Tag Suggestion</button>
+					<hr>
+				</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	        <!-- Modal for add tag suggestion confirmation -->
+        <div id="suggest_tag_modal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirm Item Submission</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure to submit this tag?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirm_suggestion">Confirm</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+	{% endblock user_content %}
+
+{% endblock main_content %}
+
