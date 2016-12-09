@@ -141,3 +141,10 @@ function additem_mark(event){
     
 }
 
+function confim_suggestion(event){    
+    $('#suggest_tag_modal').one('click','#confirm_suggestion', function(e){
+        document.getElementById('tag-form').submit();
+    })
+    
+}
+

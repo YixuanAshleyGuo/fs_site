@@ -197,6 +197,7 @@
                                 {% if request.user.is_staff %}
                                 <li><a href="{% url 'admin:index' %}">Manage Site</a></li>
                                 {% endif %}
+                                <li><a href="{% url 'tag_suggestion' %}">Tag Suggestion</a></li>
                                 <li><a href="{% url 'account_change_password' %}">Change Password</a></li>
                                 <li><a href="{% url 'account_reset_password' %}">Reset Password</a></li>
                                 <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
