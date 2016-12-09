@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 01, 2016 at 12:51 AM
+-- Generation Time: Dec 09, 2016 at 08:20 PM
 -- Server version: 5.7.11
 -- PHP Version: 5.5.27
 
@@ -143,7 +143,13 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (33, 'Can delete social account', 11, 'delete_socialaccount'),
 (34, 'Can add social application token', 12, 'add_socialtoken'),
 (35, 'Can change social application token', 12, 'change_socialtoken'),
-(36, 'Can delete social application token', 12, 'delete_socialtoken');
+(36, 'Can delete social application token', 12, 'delete_socialtoken'),
+(37, 'Can add marker', 13, 'add_marker'),
+(38, 'Can change marker', 13, 'change_marker'),
+(39, 'Can delete marker', 13, 'delete_marker'),
+(40, 'Can add filter', 14, 'add_filter'),
+(41, 'Can change filter', 14, 'change_filter'),
+(42, 'Can delete filter', 14, 'delete_filter');
 
 -- --------------------------------------------------------
 
@@ -171,7 +177,7 @@ CREATE TABLE `auth_user` (
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
 (1, 'pbkdf2_sha256$24000$9mShwCNI1Q4K$2ij3C4uW/5XCOhSASUpm/w3ab0MVxNfKH20k4jGF5nI=', '2016-11-14 05:54:58.700123', 1, 'cyixuan', '', '', 'cyixuan568@gmail.com', 1, 1, '2016-10-16 17:47:59.885543'),
-(10, 'pbkdf2_sha256$24000$YWviz7e95Q0Q$qIBO0QINUujFLQ3kbH7fuWxaHfkOOhMGAZWDJ05UaLw=', '2016-11-28 22:13:16.407120', 0, 'erik.dyer', '', '', 'erik.dyer@columbia.edu', 0, 1, '2016-11-13 17:17:12.859326'),
+(10, 'pbkdf2_sha256$24000$YWviz7e95Q0Q$qIBO0QINUujFLQ3kbH7fuWxaHfkOOhMGAZWDJ05UaLw=', '2016-12-08 16:28:31.136955', 0, 'erik.dyer', '', '', 'erik.dyer@columbia.edu', 0, 1, '2016-11-13 17:17:12.859326'),
 (11, 'pbkdf2_sha256$24000$lsEMFKvh1GTo$bCHL2C6Mk+RVMn0cwbBZJbsfobOknaPyA4zwfmA62Jo=', '2016-11-13 17:22:17.764103', 0, 'glalteva', '', '', 'glalteva@gmail.com', 0, 1, '2016-11-13 17:22:16.709471'),
 (12, 'pbkdf2_sha256$24000$SDECtRIF3DS5$DP53NacS25cZrbMu/7caf/ZV6DVda0ToMW387XlehpA=', '2016-11-15 15:24:28.719243', 0, 'gla2112', '', '', 'gla2112@barnard.edu', 0, 1, '2016-11-15 15:24:27.351363');
 
@@ -264,6 +270,8 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (2, 'auth', 'permission'),
 (4, 'auth', 'user'),
 (5, 'contenttypes', 'contenttype'),
+(14, 'freesources', 'filter'),
+(13, 'freesources', 'marker'),
 (6, 'sessions', 'session'),
 (7, 'sites', 'site'),
 (11, 'socialaccount', 'socialaccount'),
@@ -306,7 +314,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (16, 'sites', '0002_alter_domain_unique', '2016-11-09 19:35:47.023481'),
 (17, 'socialaccount', '0001_initial', '2016-11-09 19:57:24.739275'),
 (18, 'socialaccount', '0002_token_max_lengths', '2016-11-09 19:57:24.858316'),
-(19, 'socialaccount', '0003_extra_data_default_dict', '2016-11-09 19:57:24.888576');
+(19, 'socialaccount', '0003_extra_data_default_dict', '2016-11-09 19:57:24.888576'),
+(20, 'freesources', '0001_initial', '2016-12-08 16:21:14.908018');
 
 -- --------------------------------------------------------
 
@@ -326,7 +335,7 @@ CREATE TABLE `django_session` (
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
 ('9htzid0345zbke2poau45wj6k92505vq', 'Mzc5Yjc1YmQ2MzJhNTcwZDA4ZmM3MmYwOWZhMjg5ZjRhY2UwNTk3Mzp7Il9zZXNzaW9uX2V4cGlyeSI6MCwiX2F1dGhfdXNlcl9oYXNoIjoiYjQ3ODU2ZGJkYmJjZGU4YmUxNGYxYTZjNTM5YWMzZTAxMmQzYWUwMyIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImFsbGF1dGguYWNjb3VudC5hdXRoX2JhY2tlbmRzLkF1dGhlbnRpY2F0aW9uQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', '2016-11-26 03:45:10.944763'),
-('cq5wcrtc50a7y9s4b2fo3ds9kxqlc939', 'NzExY2RiZDNlZTUyNTRmNDMxMzIxMWRjZjc5NDdjZDMyZjllZWRkMzp7fQ==', '2016-12-15 00:48:48.715113'),
+('nrukrflayp9ee3c532pmptx6x8if596l', 'ZjY0ZDUzMmM2YmFmODM3MmQzODZkOTQzZWJjOWY2MTk2MDFlZGNjYjp7Il9zZXNzaW9uX2V4cGlyeSI6MCwiX2F1dGhfdXNlcl9oYXNoIjoiNTU5MGM0MDI1NThlZmVkMzkyZjBmNzEwM2FmMjVlOWEyNTU5MGQ0YiIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImFsbGF1dGguYWNjb3VudC5hdXRoX2JhY2tlbmRzLkF1dGhlbnRpY2F0aW9uQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxMCJ9', '2016-12-22 16:28:31.142196'),
 ('xvneitc625iihyvrw4znbnra3op0wdi0', 'MmI5MDJlMjQxMDc3NmU0ZmU5NjU2YmI1Y2YwZDg2OGY1MTFmMjNmMjp7Il9hdXRoX3VzZXJfaGFzaCI6ImI0Nzg1NmRiZGJiY2RlOGJlMTRmMWE2YzUzOWFjM2UwMTJkM2FlMDMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', '2016-10-31 03:48:51.731635');
 
 -- --------------------------------------------------------
@@ -351,6 +360,28 @@ INSERT INTO `django_site` (`id`, `domain`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `freesources_filter`
+--
+
+CREATE TABLE `freesources_filter` (
+  `id` int(11) NOT NULL,
+  `tag_type` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `freesources_marker`
+--
+
+CREATE TABLE `freesources_marker` (
+  `id` int(11) NOT NULL,
+  `location` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `fs_feedback`
 --
 
@@ -370,20 +401,8 @@ INSERT INTO `fs_feedback` (`feedback_id`, `item_id`, `feedback_type`, `user_id`)
 (2, 12, 'rej_exp', 1),
 (4, 8, 'confirm', 1),
 (5, 9, 'rej_false', 1),
-(10, 13, 'rej_exp', 1),
-(13, 13, 'confirm', 10),
-(14, 10, 'confirm', 12),
-(16, 26, 'confirm', 12),
-(17, 18, 'confirm', 12),
-(18, 27, 'rej_false', 10),
-(20, 25, 'confirm', 10),
-(23, 18, 'confirm', 10),
-(27, 32, 'rej_false', 10),
-(29, 24, 'rej_false', 10),
-(30, 34, 'rej_false', 10),
-(31, 35, 'rej_false', 10),
-(32, 38, 'rej_false', 10),
-(33, 55, 'confirm', 10);
+(35, 11, 'rej_false', 10),
+(36, 72, 'confirm', 10);
 
 -- --------------------------------------------------------
 
@@ -416,47 +435,14 @@ INSERT INTO `fs_item` (`item_id`, `user_id`, `tag_id`, `longitude`, `latitude`, 
 (10, 1, 4, '-73.963220', '40.806403', 'Butler Library, Columbia University, 535 W 114th St,New York, NY 10027', 'restroom at each level', 'Permanent', '2016-10-16 00:00:00', NULL),
 (11, 1, 1, '-73.963220', '40.806403', 'Bulter Library, Columbia University, New York', NULL, 'Permanent', '2016-10-17 00:00:00', NULL),
 (12, 1, 2, '-73.960368', '40.806975', 'Columbia Law School, 435 W 116th St, New York, NY 10027', NULL, 'Temporary', '2016-10-17 11:00:00', '2016-10-17 12:00:00'),
-(13, 1, 1, '-73.961290', '40.805624', '1111 Amsterdam Ave, New York, NY 10025', NULL, 'Permanent', '2016-10-16 00:00:00', NULL),
-(16, 1, 1, '-84.000000', '26.000000', 'test loc', 'test desc', 'Temporary', '2016-10-27 13:09:00', '2016-10-27 16:00:00'),
-(18, 1, 1, '-73.973400', '40.802430', 'LatLng(40.80243, -73.9734)', 'work work work', 'Temporary', '2016-11-16 17:00:00', '2016-11-17 18:00:00'),
-(19, 1, 1, '-73.966760', '40.802390', 'LatLng(40.80239, -73.96676)', 'please', 'Temporary', '2016-11-17 05:00:00', '2016-11-18 11:06:00'),
-(20, 1, 1, '-73.964190', '40.809050', 'LatLng(40.80905, -73.96419)', 'hello world', 'Temporary', '2016-11-13 05:00:00', '2016-11-13 05:00:00'),
-(21, 1, 4, '-73.966590', '40.807540', 'LatLng(40.80635, -73.96631)', 'test recurrent', 'Recurrent', '2016-11-14 17:00:00', '2016-11-14 19:00:00'),
-(22, 1, 4, '-73.961890', '40.808120', 'first floor', 'test permanent', 'Permanent', NULL, NULL),
-(23, 1, 4, '-73.968501', '40.806874', 'LatLng(40.80687, -73.9685)', 'test auto lat lng', 'Permanent', NULL, NULL),
-(24, 1, 4, '-73.962214', '40.812900', 'sakuna park', 'test for confirm before submit', 'Permanent', NULL, NULL),
-(25, 1, 2, '-73.961871', '40.810025', 'Science and Engineer Library', 'test for confirm before submit', 'Temporary', '2016-11-15 21:00:00', '2016-11-15 22:00:00'),
-(26, 1, 4, '-73.964231', '40.806712', 'LatLng(40.80671, -73.96423)', 'test for confirm before submit', 'Permanent', NULL, NULL),
-(27, 1, 6, '-73.964000', '40.801612', 'LatLng(40.80161, -73.964)', 'test for confirm before submit', 'Permanent', NULL, NULL),
-(28, 1, 1, '-73.962343', '40.803886', 'LatLng(40.80389, -73.96234)', 'test for confirm before submit', 'Permanent', NULL, NULL),
-(29, 1, 2, '-73.961012', '40.803382', 'LatLng(40.80338, -73.96101)', 'test for confirm before submit--', 'Permanent', NULL, NULL),
-(30, 1, 3, '-73.958158', '40.800442', 'LatLng(40.80044, -73.95816)', 'test for confirm before submit - this time should work', 'Temporary', '2016-11-17 17:00:00', '2016-11-19 01:00:00'),
-(31, 1, 1, '-73.957601', '40.802505', 'LatLng(40.80251, -73.9576)', '', 'Temporary', NULL, NULL),
-(32, 1, 1, '-73.958287', '40.808141', 'LatLng(40.80814, -73.95829)', 'In the lobby 32', 'Permanent', NULL, NULL),
-(33, 1, 1, '-73.962750', '40.808612', 'LatLng(40.80861, -73.96275)', 'should not add', 'Permanent', NULL, NULL),
-(34, 1, 1, '-73.973114', '40.811389', '', 'please work hhhhh', 'Permanent', NULL, NULL),
-(35, 10, 1, '-73.971419', '40.812640', '', 'test for normal add item', 'Permanent', NULL, NULL),
-(38, 10, 1, '-73.971484', '40.809294', '', 'testt', 'Permanent', NULL, NULL),
-(40, 10, 1, '-73.980432', '40.814410', '', 'test adding new marker', 'Permanent', NULL, NULL),
-(41, 10, 1, '-73.974445', '40.817008', '', 'test for adding item at already exist location', 'Permanent', NULL, NULL),
-(44, 10, 2, '-73.974445', '40.817008', '', 'test for adding item at already exist location', 'Temporary', '2016-11-29 20:00:00', '2016-11-29 20:30:00'),
-(45, 10, 1, '-70.434029', '43.409152', '', 'this should work??', 'Permanent', NULL, NULL),
-(46, 10, 4, '-70.434029', '43.409152', '', '...........', 'Permanent', NULL, NULL),
-(48, 10, 1, '-73.978779', '40.817918', '', 'test for location autofill and save', 'Permanent', NULL, NULL),
-(49, 10, 1, '-73.985388', '40.809262', '', ',,,,,,,,,,,,,', 'Temporary', NULL, NULL),
-(50, 10, 1, '-73.978779', '40.817918', '', 'will this work?', 'Permanent', NULL, NULL),
-(51, 10, 1, '-73.976398', '40.815011', '', 'test for passing location field data', 'Permanent', NULL, NULL),
-(52, 10, 1, '-73.951185', '40.796187', '', 'test for add item with location', 'Permanent', NULL, NULL),
-(53, 10, 6, '-73.958287', '40.796560', '', 'test for adding location in new field', 'Permanent', NULL, NULL),
-(54, 10, 4, '-73.967342', '40.797291', 'LatLng(40.79729, -73.96734)', 'test for adding item with location at new field', 'Permanent', NULL, NULL),
-(55, 10, 7, '-73.965819', '40.812201', 'LatLng(40.8122, -73.96582)', 'test for adding item - esp location', 'Permanent', NULL, NULL),
-(56, 10, 7, '-73.965068', '40.811552', '', 'test add item - esp location field', 'Permanent', NULL, NULL),
-(57, 10, 7, '-73.966227', '40.811601', '', 'test add item - esp location field - pls work', 'Permanent', NULL, NULL),
-(58, 10, 1, '-73.959510', '40.819802', 'LatLng(40.8198, -73.95951)', 'test add item - esp location field - pls work', 'Permanent', NULL, NULL),
-(59, 10, 1, '-73.961635', '40.818908', '', 'test add item - esp location field - pls work', 'Permanent', NULL, NULL),
-(60, 10, 1, '-73.949211', '40.817057', 'LatLng(40.81706, -73.94921)', 'test add item - esp location field - pls work', 'Permanent', NULL, NULL),
-(61, 10, 2, '-73.957257', '40.811828', '', 'test add item - esp location field - pls work', 'Permanent', NULL, NULL),
-(62, 10, 1, '-73.956056', '40.812023', 'LatLng(40.81202, -73.95606)', 'test add item - esp location field - pls work', 'Permanent', NULL, NULL);
+(71, 10, 1, '-73.967149', '40.805374', '610 W 111th St, New York, New York, 10025', 'free AED for emergency', 'Temporary', '2016-12-08 12:00:00', '2016-12-09 14:00:00'),
+(72, 10, 2, '-73.961957', '40.808200', '553 W 116th St, New York, New York, 10027', 'free pizza in lobby', 'Temporary', '2016-12-08 15:00:00', '2016-12-08 15:30:00'),
+(75, 10, 3, '-73.963823', '40.807380', '2941 Broadway, New York, New York, 10025', 'free beer limited time', 'Temporary', '2016-12-09 16:00:00', '2016-12-09 17:00:00'),
+(76, 10, 2, '-73.962450', '40.803856', '1050 Amsterdam Ave, New York, New York, 10025', 'test for expiration past', 'Temporary', '2016-12-09 00:00:00', '2016-12-09 09:00:00'),
+(77, 10, 2, '-73.956163', '40.806130', '421 Manhattan Ave, New York, New York, 10026', 'test for expiration past', 'Temporary', '2016-12-08 00:00:00', '2016-12-09 00:00:00'),
+(78, 10, 1, '-73.957579', '40.804116', '345 Manhattan Ave, New York, New York, 10026', 'test for expiration past', 'Temporary', '2016-12-09 00:00:00', '2016-12-08 00:00:00'),
+(79, 10, 7, '-73.970282', '40.804814', 'Henry Hudson Pkwy, New York, New York, 10025', 'test for null time', 'Permanent', NULL, NULL),
+(80, 10, 7, '-73.960368', '40.806975', 'No.12 : Geolocation[40.806975,-73.960368]', 'test for null time', 'Permanent', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -494,40 +480,6 @@ CREATE TABLE `fs_tag_suggestion` (
   `tag_title` varchar(255) NOT NULL,
   `tag_description` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `fs_tag_suggestion`
---
-ALTER TABLE `fs_tag_suggestion`
-  ADD PRIMARY KEY (`tag_id`),
-  ADD KEY `user_idx_tagsug` (`user_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `fs_tag_suggestion`
---
-ALTER TABLE `fs_tag_suggestion`
-  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `fs_tag_suggestion`
---
-ALTER TABLE `fs_tag_suggestion`
-  ADD CONSTRAINT `user_constraint_tagsug` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 -- --------------------------------------------------------
 
@@ -688,6 +640,18 @@ ALTER TABLE `django_site`
   ADD UNIQUE KEY `django_site_domain_a2e37b91_uniq` (`domain`);
 
 --
+-- Indexes for table `freesources_filter`
+--
+ALTER TABLE `freesources_filter`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `freesources_marker`
+--
+ALTER TABLE `freesources_marker`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `fs_feedback`
 --
 ALTER TABLE `fs_feedback`
@@ -708,6 +672,13 @@ ALTER TABLE `fs_item`
 --
 ALTER TABLE `fs_tag`
   ADD PRIMARY KEY (`tag_id`);
+
+--
+-- Indexes for table `fs_tag_suggestion`
+--
+ALTER TABLE `fs_tag_suggestion`
+  ADD PRIMARY KEY (`tag_id`),
+  ADD KEY `user_idx_tagsug` (`user_id`);
 
 --
 -- Indexes for table `socialaccount_socialaccount`
@@ -767,7 +738,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT for table `auth_user`
 --
@@ -792,32 +763,47 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT for table `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `django_site`
 --
 ALTER TABLE `django_site`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `freesources_filter`
+--
+ALTER TABLE `freesources_filter`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `freesources_marker`
+--
+ALTER TABLE `freesources_marker`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `fs_feedback`
 --
 ALTER TABLE `fs_feedback`
-  MODIFY `feedback_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `feedback_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `fs_item`
 --
 ALTER TABLE `fs_item`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 --
 -- AUTO_INCREMENT for table `fs_tag`
 --
 ALTER TABLE `fs_tag`
   MODIFY `tag_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `fs_tag_suggestion`
+--
+ALTER TABLE `fs_tag_suggestion`
+  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `socialaccount_socialaccount`
 --
@@ -892,15 +878,21 @@ ALTER TABLE `django_admin_log`
 -- Constraints for table `fs_feedback`
 --
 ALTER TABLE `fs_feedback`
-  ADD CONSTRAINT `event_constraint` FOREIGN KEY (`item_id`) REFERENCES `fs_item` (`item_id`),
+  ADD CONSTRAINT `item_constraint` FOREIGN KEY (`item_id`) REFERENCES `fs_item` (`item_id`),
   ADD CONSTRAINT `user_constraint` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Constraints for table `fs_item`
 --
 ALTER TABLE `fs_item`
-  ADD CONSTRAINT `tag_constraint` FOREIGN KEY (`tag_id`) REFERENCES `fs_tag` (`tag_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tag_item_constraint` FOREIGN KEY (`tag_id`) REFERENCES `fs_tag` (`tag_id`),
   ADD CONSTRAINT `user_item_constraint` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `fs_tag_suggestion`
+--
+ALTER TABLE `fs_tag_suggestion`
+  ADD CONSTRAINT `user_constraint_tagsug` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Constraints for table `socialaccount_socialaccount`
