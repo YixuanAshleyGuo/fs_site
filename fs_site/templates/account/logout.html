@@ -26,10 +26,12 @@
 					  {% if redirect_field_value %}
 					  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
 					  {% endif %}
-					  <button d = "btn-login" class="primaryAction btn btn-custom btn-block btn-lg" type="submit" class="btn btn-primary">{% trans 'Sign Out' %}</button>
+					  <button id = "btn-login" class="primaryAction btn btn-custom btn-block btn-lg" type="submit" class="btn btn-primary">{% trans 'Sign Out' %}</button>
+					</form>
+					<a href="{% url 'index' %}" class=" btn btn-default btn-block">{% trans "Back to Map" %}</a>
 					<hr>
 					<p>Please note: after signed out, you are only allowed to see the items on map and feedbacks, but you are no longer able to add new items or contribute to the current items.</p>
-					</form>
+					
 				</div>
 				</div>
 			</div>

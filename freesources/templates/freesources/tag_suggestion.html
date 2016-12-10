@@ -1,4 +1,4 @@
-{% extends 'freesources/base.html' %}
+{% extends 'account/base.html' %}
 
 {% load i18n %}
 {% load bootstrap3 %}
@@ -8,33 +8,28 @@
 {% block title %}{% trans "Suggest a Tag" %}{% endblock title %}
 
 {% block main_content %}
-    {% block head_content %}
-    {% endblock head_content %} 
-    
-    
-	{% block user_content %}
-	
-	<section id="suggest_tag">
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12">
-				<div class="form-wrap">
-					<h1>{% trans "Test" %}</h1>
-					<p class="forget">{% trans 'Still a test?' %}</p>
-            		<form id = "tag-form" class = "form-horizontal" action="" method="POST">
-					  	{% csrf_token %}
-                		{{form.as_table}}
-                		<br>
+  <section id="login">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+        <div class="form-wrap">
+          <h1>{% trans "Tag Suggestion Form" %}</h1>
+<!-- 					<p class="forget">{% trans 'Still a test?' %}</p>
+ -->            	<form id = "tag-form" class = "form-horizontal" action="" method="POST">
+					  	  {% csrf_token %}
+                {{form.as_table}}
+                <br>
 					  
-					<p>Please note: this is a test.</p>
+					<p>Please note: tag suggestion would not occure right away, we will keep you updated after review, thank you for your suggestion!</p>
 					</form>
-					<button class="btn btn-primary" data-toggle="modal" data-target="#suggest_tag_modal" onclick="confim_suggestion(this)">Submit Tag Suggestion</button>
+					<button id = "btn-login" class="primaryAction btn btn-custom btn-block btn-lg"data-toggle="modal" data-target="#suggest_tag_modal" onclick="confim_suggestion(this)">Submit Tag Suggestion</button>
+          <a href="{% url 'index' %}" class=" btn btn-default btn-block btn-lg">{% trans "Back to Map" %}</a></p>
 					<hr>
 				</div>
 				</div>
 			</div>
 		</div>
-	</section>
+  </section>
 
 	        <!-- Modal for add tag suggestion confirmation -->
         <div id="suggest_tag_modal" class="modal fade" role="dialog">
@@ -57,7 +52,6 @@
 
           </div>
         </div>
-	{% endblock user_content %}
-
+</div>
 {% endblock main_content %}
 

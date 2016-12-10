@@ -6,6 +6,15 @@ body{
 a:hover{
     text-decoration: none;
 }
+#bg{
+  width: 100%;
+  min-height: 
+  background: url("../images/log-bg-city-map.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 #map {
   padding: 20px;
 }

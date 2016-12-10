@@ -28,6 +28,7 @@
 						  {% endif %}			  
 						  <button id = "btn-login" class="primaryAction btn btn-custom btn-block btn-lg" type="submit">{% trans "Sign up" %}</button>
 						</form>
+						<a href="{% url 'index' %}" class=" btn btn-default btn-block">{% trans "Back to Map" %}</a>
 						<hr>
 						<p style="text-align: center">{% blocktrans %}Already have an account?
 	<a href="{{ login_url }}">sign in</a> directly.{% endblocktrans %}</p>

@@ -65,7 +65,7 @@ function onMapClickMark(){
     var locations = document.getElementsByClassName('location_mark');
     var lat = document.getElementsByClassName('lat_mark');
     var lng = document.getElementsByClassName('lng_mark');
-    for (var i = 0; i < locations.length; ++i){
+    for (var i = 0; i < storedMarkers.length; ++i){
         // console.log("map.js - additem_mark - this is the "+i+" of the marker ["+storedMarkers[i][1]['lat']+","+storedMarkers[i][1]['lng']+"]");      
 
         locations[i].value = "No."+idx+" : Geolocation["+storedMarkers[i][1]['lat']+","+storedMarkers[i][1]['lng']+"]";

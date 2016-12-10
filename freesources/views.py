@@ -67,17 +67,7 @@ def index(request):
             ) f_confirm ON f_confirm.item_id = ev.item_id
             ORDER BY ev.latitude, ev.longitude
             ;""",[request.user.id])
-            
-        # cursor.execute("""SELECT COUNT(*)
-        #     FROM 
-        #     LEFT JOIN Feedback f_rej_f ON f_rej_f.feedback_type = 'rej_false' AND ev.event_id = f_rej_f.event_id
-        #     LEFT JOIN Feedback f_rej_e ON f_rej_e.feedback_type = 'rej_exp' AND ev.event_id = f_rej_e.event_id
-        #     LEFT JOIN Feedback f_confirm ON f_confirm.feedback_type = 'confirm' AND ev.event_id = f_confirm.event_id
-        #     GROUP BY ev.event_id;
-        #     """,
-        #     [request.user.id])
         items = dictfetchall(cursor)    
-
     context = {
         'items': items,
         'form': form,
@@ -134,9 +124,6 @@ def tag_suggestion(request):
         'form': form,
     }
     return render(request,'freesources/tag_suggestion.html', context)
-
-
-
 
 
 
